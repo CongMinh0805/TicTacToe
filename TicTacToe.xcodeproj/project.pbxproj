@@ -7,18 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4677126C2A99B9FD00AC2E28 /* TicTacToeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4677126B2A99B9FD00AC2E28 /* TicTacToeApp.swift */; };
-		4677126E2A99B9FD00AC2E28 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4677126D2A99B9FD00AC2E28 /* ContentView.swift */; };
+		4677126C2A99B9FD00AC2E28 /* AppEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4677126B2A99B9FD00AC2E28 /* AppEntry.swift */; };
+		4677126E2A99B9FD00AC2E28 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4677126D2A99B9FD00AC2E28 /* StartView.swift */; };
 		467712702A99BA0000AC2E28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4677126F2A99BA0000AC2E28 /* Assets.xcassets */; };
 		467712732A99BA0000AC2E28 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 467712722A99BA0000AC2E28 /* Preview Assets.xcassets */; };
+		4677127C2A99BC5C00AC2E28 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4677127B2A99BC5C00AC2E28 /* Launch Screen.storyboard */; };
+		4677127F2A99BEBE00AC2E28 /* GameModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4677127E2A99BEBE00AC2E28 /* GameModels.swift */; };
+		467712822A99C46400AC2E28 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467712812A99C46400AC2E28 /* ViewModifiers.swift */; };
+		467712852A99C58000AC2E28 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467712842A99C58000AC2E28 /* GameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		467712682A99B9FD00AC2E28 /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4677126B2A99B9FD00AC2E28 /* TicTacToeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeApp.swift; sourceTree = "<group>"; };
-		4677126D2A99B9FD00AC2E28 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4677126B2A99B9FD00AC2E28 /* AppEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntry.swift; sourceTree = "<group>"; };
+		4677126D2A99B9FD00AC2E28 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		4677126F2A99BA0000AC2E28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		467712722A99BA0000AC2E28 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4677127B2A99BC5C00AC2E28 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		4677127E2A99BEBE00AC2E28 /* GameModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModels.swift; sourceTree = "<group>"; };
+		467712812A99C46400AC2E28 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
+		467712842A99C58000AC2E28 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +59,14 @@
 		4677126A2A99B9FD00AC2E28 /* TicTacToe */ = {
 			isa = PBXGroup;
 			children = (
-				4677126B2A99B9FD00AC2E28 /* TicTacToeApp.swift */,
-				4677126D2A99B9FD00AC2E28 /* ContentView.swift */,
+				467712832A99C56B00AC2E28 /* Game Screen */,
+				467712802A99C44500AC2E28 /* Utilities */,
+				4677127D2A99BE9900AC2E28 /* Models */,
+				4677126B2A99B9FD00AC2E28 /* AppEntry.swift */,
+				4677126D2A99B9FD00AC2E28 /* StartView.swift */,
 				4677126F2A99BA0000AC2E28 /* Assets.xcassets */,
 				467712712A99BA0000AC2E28 /* Preview Content */,
+				4677127B2A99BC5C00AC2E28 /* Launch Screen.storyboard */,
 			);
 			path = TicTacToe;
 			sourceTree = "<group>";
@@ -65,6 +77,30 @@
 				467712722A99BA0000AC2E28 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4677127D2A99BE9900AC2E28 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4677127E2A99BEBE00AC2E28 /* GameModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		467712802A99C44500AC2E28 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				467712812A99C46400AC2E28 /* ViewModifiers.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		467712832A99C56B00AC2E28 /* Game Screen */ = {
+			isa = PBXGroup;
+			children = (
+				467712842A99C58000AC2E28 /* GameView.swift */,
+			);
+			path = "Game Screen";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +161,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4677127C2A99BC5C00AC2E28 /* Launch Screen.storyboard in Resources */,
 				467712732A99BA0000AC2E28 /* Preview Assets.xcassets in Resources */,
 				467712702A99BA0000AC2E28 /* Assets.xcassets in Resources */,
 			);
@@ -137,8 +174,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4677126E2A99B9FD00AC2E28 /* ContentView.swift in Sources */,
-				4677126C2A99B9FD00AC2E28 /* TicTacToeApp.swift in Sources */,
+				4677126E2A99B9FD00AC2E28 /* StartView.swift in Sources */,
+				4677127F2A99BEBE00AC2E28 /* GameModels.swift in Sources */,
+				4677126C2A99B9FD00AC2E28 /* AppEntry.swift in Sources */,
+				467712822A99C46400AC2E28 /* ViewModifiers.swift in Sources */,
+				467712852A99C58000AC2E28 /* GameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,8 +313,10 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,8 +344,10 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
