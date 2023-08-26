@@ -12,7 +12,7 @@ struct MPGameMove: Codable {
         case start, move, reset, end
     }
     let action: Action
-    let playName: String?
+    let playerName: String?
     let index: Int?
     
     func data() -> Data? {
