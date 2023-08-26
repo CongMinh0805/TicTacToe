@@ -25,7 +25,7 @@ struct StartView: View {
         VStack {
             Picker("Select Game", selection: $gameType) {
                 Text("Select Game Type").tag(GameType.undetermined)
-                Text("Two Sharing Device").tag(GameType.single)
+                Text("2 Players 1 Device").tag(GameType.single)
                 Text("Challenge your device").tag(GameType.bot)
                 Text("Challenge a friend").tag(GameType.peer)
             }
@@ -65,6 +65,7 @@ struct StartView: View {
                     gameType == .single && opponentName.isEmpty
                 )
                 Image("LaunchScreen")
+               
                 Text("Your name is \(yourName)")
                 Button("Change my name") {
                     changeName.toggle()
