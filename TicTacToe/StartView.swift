@@ -108,7 +108,7 @@ struct StartView: View {
                 .environmentObject(connectionManager)
         }
         .fullScreenCover(isPresented: $showLeaderboard) {
-            LeaderboardView()
+            LeaderboardView(gameService: game)
         }
         .alert("Change Name", isPresented: $changeName, actions: {
             TextField("New name:", text: $newName)

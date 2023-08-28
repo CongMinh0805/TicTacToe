@@ -10,13 +10,13 @@ import SwiftUI
 struct LeaderboardView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var isButtonPressed: Bool = false
-
+    @ObservedObject var gameService: GameService
     
     // Sample data for the leaderboard
     let leaderboardEntries: [LeaderboardEntry] = [
-        LeaderboardEntry(username: "Alex", wins: 10),
-        LeaderboardEntry(username: "Jordan", wins: 7),
-        LeaderboardEntry(username: "Charlie", wins: 5),
+//        LeaderboardEntry(username: "Alex", wins: 10),
+//        LeaderboardEntry(username: "Jordan", wins: 7),
+//        LeaderboardEntry(username: "Charlie", wins: 5),
         //... add more entries as needed
     ]
     
@@ -32,7 +32,7 @@ struct LeaderboardView: View {
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
                 
-                ForEach(leaderboardEntries) { entry in
+                ForEach(gameService.leaderboard) { entry in
                     HStack {
                         Text(entry.username)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -67,7 +67,18 @@ struct LeaderboardView: View {
 }
 
 struct LeaderboardView_Previews: PreviewProvider {
+    static var mockGameService: GameService = {
+        let service = GameService()
+        service.leaderboard = [
+//            LeaderboardEntry(username: "Alex", wins: 10),
+//            LeaderboardEntry(username: "Jordan", wins: 7),
+//            LeaderboardEntry(username: "Charlie", wins: 5)
+        ]
+        return service
+    }()
+    
     static var previews: some View {
-        LeaderboardView()
+        LeaderboardView(gameService: mockGameService)
     }
 }
+

@@ -16,6 +16,8 @@ class GameService: ObservableObject {
     @Published var gameBoard = GameSquare.reset
     @Published var isThinking = false
     
+    @Published var leaderboard: [LeaderboardEntry] = []
+
     var gameType = GameType.single
     
     var currentPlayer: Player {
@@ -33,7 +35,9 @@ class GameService: ObservableObject {
     var boardDisabled: Bool {
         gameOver || !gameStarted || isThinking
     }
-    
+    init() {
+        loadLeaderboard()
+    }
     func setupGame(gameType: GameType, player1Name: String, player2Name: String) {
         switch gameType {
         case .single:
@@ -72,10 +76,14 @@ class GameService: ObservableObject {
     }
     
     func checkWinner() {
-        if player1.isWinner || player2.isWinner {
-            gameOver = true
+            if player1.isWinner {
+                gameOver = true
+                updateLeaderboard(for: player1)
+            } else if player2.isWinner {
+                gameOver = true
+                updateLeaderboard(for: player2)
+            }
         }
-    }
     
     func toggleCurrent() {
         player1.isCurrent.toggle()
@@ -115,5 +123,47 @@ class GameService: ObservableObject {
             }
         }
         isThinking.toggle()
+    }
+    
+    func updateLeaderboard(for player: Player) {
+        if let index = leaderboard.firstIndex(where: { $0.username == player.name }) {
+            // Player exists in the leaderboard. Update their wins.
+            leaderboard[index].wins += 1
+        } else {
+            // Player doesn't exist in the leaderboard. Add a new entry.
+            leaderboard.append(LeaderboardEntry(username: player.name, wins: 1))
+        }
+        // Sort the leaderboard based on wins (optional).
+        leaderboard.sort(by: { $0.wins > $1.wins })
+        
+        // Save the updated leaderboard.
+        saveLeaderboard()
+    }
+
+    
+    func saveLeaderboard() {
+        if let encodedData = try? JSONEncoder().encode(leaderboard) {
+            UserDefaults.standard.set(encodedData, forKey: "leaderboard")
+        }
+    }
+
+    func loadLeaderboard() {
+        if let savedData = UserDefaults.standard.data(forKey: "leaderboard"),
+           let decodedData = try? JSONDecoder().decode([LeaderboardEntry].self, from: savedData) {
+            self.leaderboard = decodedData
+        }
+    }
+
+}
+struct LeaderboardEntry: Identifiable, Codable, Equatable {
+    var id: UUID
+    let username: String
+    var wins: Int
+
+    // Default initializer
+    init(username: String, wins: Int) {
+        self.id = UUID()
+        self.username = username
+        self.wins = wins
     }
 }
