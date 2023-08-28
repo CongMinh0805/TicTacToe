@@ -116,6 +116,7 @@ struct StartView: View {
                 yourName = newName
                 exit(-1)
             }
+            .padding()
             Button("Cancel", role: .cancel) {}
         }, message: {
             Text("Warning: Tapping on the Change button will quit the application so you can relaunch with the changed name!")

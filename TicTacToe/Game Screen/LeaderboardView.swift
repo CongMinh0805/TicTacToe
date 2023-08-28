@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LeaderboardView: View {
     @Environment(\.presentationMode) var presentationMode
+    @State private var isButtonPressed: Bool = false
 
     
     // Sample data for the leaderboard
@@ -43,12 +44,21 @@ struct LeaderboardView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "xmark")
-                            .font(.title)
-                            .foregroundColor(.primary)
-                    }
+                                withAnimation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0)) {
+                                    isButtonPressed.toggle()
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0)) {
+                                        isButtonPressed.toggle()
+                                    }
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            }) {
+                                Image(systemName: "arrow.left")
+                                    .font(.title)
+                                    .foregroundColor(.primary)
+                                    .scaleEffect(isButtonPressed ? 1.2 : 1.0)
+                            }
                 }
             }
             .navigationTitle("Leaderboard")
