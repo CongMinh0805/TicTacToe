@@ -1,0 +1,37 @@
+//
+//  ThemeToggleButtonView.swift
+//  TicTacToe
+//
+//  Created by Minh Dang Cong on 28/08/2023.
+//
+
+import SwiftUI
+
+struct ThemeToggleButtonView: View {
+    @EnvironmentObject var settings: UserSettings  // Changed from @ObservedObject
+
+    var body: some View {
+        Button(action: {
+            settings.isDarkMode.toggle()
+            print("Dark mode is now: \(settings.isDarkMode)")
+        }) {
+            Image(systemName: settings.isDarkMode ? "moon.stars.fill" : "sun.max.fill")
+                .imageScale(.large)
+                .foregroundColor(.blue)
+        }
+    }
+}
+
+
+
+struct ThemeToggleButtonView_Previews: PreviewProvider {
+    static var previews: some View {
+        ThemeToggleButtonView()
+            .environmentObject(UserSettings())
+    }
+}
+
+
+class UserSettings: ObservableObject {
+    @AppStorage("isDarkMode") var isDarkMode: Bool = false
+}

@@ -17,13 +17,19 @@ struct StartView: View {
     @State private var startGame = false
     @State private var changeName = false
     @State private var newName = ""
+    
+    @EnvironmentObject var settings: UserSettings
+    @State private var showLeaderboard = false
+
+
+    
     init(yourName: String) {
         self.yourName = yourName
         _connectionManager = StateObject(wrappedValue: MPConnectionManager(yourName: yourName))
     }
     
+    
     var body: some View {
-        
         VStack {
             Picker("Select Game", selection: $gameType) {
                 Text("Select Game Type").tag(GameType.undetermined)
@@ -42,6 +48,7 @@ struct StartView: View {
                 case .single:
                     VStack {
                         TextField("Opponent Name", text: $opponentName)
+                        
                     }
                 case .bot:
                     EmptyView()
@@ -71,20 +78,37 @@ struct StartView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200)
+                    
+                    
                
-                Text("Your name is \(yourName)")
+                Text("Your username is \(yourName)")
+                    .fontWeight(.bold)
                 Button("Change my name") {
                     changeName.toggle()
                 }
                 .buttonStyle(.bordered)
+                
+                Button("Show Leaderboard") {
+                    showLeaderboard.toggle()
+                }
+                .buttonStyle(.borderedProminent)
+
             }
             Spacer()
         }
         .padding()
         .navigationTitle("Tic Tac Toe")
+        .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    ThemeToggleButtonView()
+                }
+            }
         .fullScreenCover(isPresented: $startGame) {
             GameView()
                 .environmentObject(connectionManager)
+        }
+        .fullScreenCover(isPresented: $showLeaderboard) {
+            LeaderboardView()
         }
         .alert("Change Name", isPresented: $changeName, actions: {
             TextField("New name:", text: $newName)
@@ -97,6 +121,7 @@ struct StartView: View {
             Text("Warning: Tapping on the Change button will quit the application so you can relaunch with the changed name!")
         })
         .inNavigationStack()
+        .preferredColorScheme(settings.isDarkMode ? .dark : .light)
     }
 }
 
@@ -104,5 +129,6 @@ struct StartView_Previews: PreviewProvider {
     static var previews: some View {
         StartView(yourName: "Sample")
             .environmentObject(GameService())
+            .environmentObject(UserSettings())
     }
 }

@@ -11,6 +11,7 @@ struct GameView: View {
     @EnvironmentObject var game: GameService
     @EnvironmentObject var connectionManager: MPConnectionManager
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var settings: UserSettings
     var body: some View {
         VStack {
             if [game.player1.isCurrent, game.player2.isCurrent].allSatisfy({ $0 == false }) {
@@ -92,16 +93,20 @@ struct GameView: View {
             Spacer()
         }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("End Game") {
-                    dismiss()
-                    if game.gameType == .peer {
-                        let gameMove = MPGameMove(action: .end, playerName: nil, index: nil)
-                        connectionManager.send(gameMove: gameMove)
-                    }
+            ToolbarItem(placement: .navigationBarLeading) {
+                            ThemeToggleButtonView()
                 }
-                .buttonStyle(.bordered)
-            }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("End Game") {
+                        dismiss()
+                        if game.gameType == .peer {
+                            let gameMove = MPGameMove(action: .end, playerName: nil, index: nil)
+                            connectionManager.send(gameMove: gameMove)
+                        }
+                    }
+                    .buttonStyle(.bordered)
+                }
+            
         }
         .navigationTitle("Tic Tac Toe")
         .onAppear{
@@ -111,6 +116,7 @@ struct GameView: View {
             }
         }
         .inNavigationStack()
+        .preferredColorScheme(settings.isDarkMode ? .dark : .light)
     }
 }
 
@@ -119,6 +125,7 @@ struct GameView_Previews: PreviewProvider {
         GameView()
             .environmentObject(GameService())
             .environmentObject(MPConnectionManager(yourName: "Sample"))
+            .environmentObject(UserSettings())
     }
 }
 

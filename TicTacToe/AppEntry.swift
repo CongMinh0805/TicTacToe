@@ -11,6 +11,8 @@ import SwiftUI
 struct AppEntry: App {
     @AppStorage("yourName") var yourName = ""
     @StateObject var game = GameService()
+    @StateObject var userSettings = UserSettings()
+    
     var body: some Scene {
         WindowGroup {
             if yourName.isEmpty {
@@ -18,6 +20,7 @@ struct AppEntry: App {
             } else {
                 StartView(yourName: yourName)
                     .environmentObject(game)
+                    .environmentObject(userSettings) 
             }
             
         }
