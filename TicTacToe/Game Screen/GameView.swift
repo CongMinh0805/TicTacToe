@@ -14,6 +14,8 @@ struct GameView: View {
     @EnvironmentObject var settings: UserSettings
     @State private var isTapped = false
     @Environment(\.presentationMode) var presentationMode
+    @State private var showingEndGameAlert = false
+
     var body: some View {
         VStack {
             if [game.player1.isCurrent, game.player2.isCurrent].allSatisfy({ $0 == false }) {
@@ -100,20 +102,30 @@ struct GameView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                               withAnimation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0)) {
-                                   self.isTapped = true
-                               }
-                               DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                   withAnimation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0)) {
-                                       self.isTapped = false
-                                       self.presentationMode.wrappedValue.dismiss()
-                                   }
-                               }
-                           }) {
-                               Text("End Game")
-                           }
-                           .buttonStyle(.bordered)
-                           .scaleEffect(isTapped ? 0.9 : 1.0)
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0)) {
+                            self.isTapped = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            withAnimation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0)) {
+                                self.isTapped = false
+                                self.showingEndGameAlert = true
+                            }
+                        }
+                    }) {
+                        Text("End Game")
+                    }
+                    .buttonStyle(.bordered)
+                    .scaleEffect(isTapped ? 0.9 : 1.0)
+                    .alert(isPresented: $showingEndGameAlert) {
+                        Alert(title: Text("End Game"),
+                              message: Text("Are you sure you want to end the game?"),
+                              primaryButton: .destructive(Text("End Game")) {
+                                  self.presentationMode.wrappedValue.dismiss()
+                              },
+                              secondaryButton: .cancel())
+                    }
+
+
                 }
             
         }
