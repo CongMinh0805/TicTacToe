@@ -12,6 +12,8 @@ struct GameView: View {
     @EnvironmentObject var connectionManager: MPConnectionManager
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var settings: UserSettings
+    @State private var isTapped = false
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         VStack {
             if [game.player1.isCurrent, game.player2.isCurrent].allSatisfy({ $0 == false }) {
@@ -97,14 +99,21 @@ struct GameView: View {
                             ThemeToggleButtonView()
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("End Game") {
-                        dismiss()
-                        if game.gameType == .peer {
-                            let gameMove = MPGameMove(action: .end, playerName: nil, index: nil)
-                            connectionManager.send(gameMove: gameMove)
-                        }
-                    }
-                    .buttonStyle(.bordered)
+                    Button(action: {
+                               withAnimation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0)) {
+                                   self.isTapped = true
+                               }
+                               DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                   withAnimation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0)) {
+                                       self.isTapped = false
+                                       self.presentationMode.wrappedValue.dismiss()
+                                   }
+                               }
+                           }) {
+                               Text("End Game")
+                           }
+                           .buttonStyle(.bordered)
+                           .scaleEffect(isTapped ? 0.9 : 1.0)
                 }
             
         }

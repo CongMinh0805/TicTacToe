@@ -17,8 +17,8 @@ struct ThemeToggleButtonView: View {
         }) {
             Image(systemName: settings.isDarkMode ? "moon.stars.fill" : "sun.max.fill")
                 .imageScale(.large)
-                .foregroundColor(.blue)
-        }
+                .foregroundColor(settings.isDarkMode ? .yellow : .red)
+        }        
     }
 }
 
