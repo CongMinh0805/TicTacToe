@@ -20,7 +20,8 @@ struct StartView: View {
     
     @EnvironmentObject var settings: UserSettings
     @State private var showLeaderboard = false
-
+    
+    @State private var selectedDifficulty: AIDifficulty = .easy
 
     
     init(yourName: String) {
@@ -28,7 +29,14 @@ struct StartView: View {
         self.yourName = yourName
     }
     
-    
+    enum AIDifficulty: String, CaseIterable, Identifiable {
+        case easy = "Easy"
+        case medium = "Medium"
+        case hard = "Hard"
+
+        var id: String { self.rawValue }
+    }
+
     var body: some View {
         VStack {
             Picker("Select Game", selection: $gameType) {
@@ -51,7 +59,12 @@ struct StartView: View {
                         
                     }
                 case .bot:
-                    EmptyView()
+                    Picker("AI Difficulty", selection: $selectedDifficulty) {
+                            ForEach(AIDifficulty.allCases) { difficulty in
+                                Text(difficulty.rawValue).tag(difficulty)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
                 case .peer:
                     MPPeersView(startGame: $startGame)
                         .environmentObject(connectionManager)
