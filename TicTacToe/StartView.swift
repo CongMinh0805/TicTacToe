@@ -24,8 +24,8 @@ struct StartView: View {
 
     
     init(yourName: String) {
-        self.yourName = yourName
         _connectionManager = StateObject(wrappedValue: MPConnectionManager(yourName: yourName))
+        self.yourName = yourName
     }
     
     
@@ -97,6 +97,7 @@ struct StartView: View {
             Spacer()
         }
         .padding()
+       
         .navigationTitle("Tic Tac Toe")
         .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -112,6 +113,7 @@ struct StartView: View {
         }
         .alert("Change Name", isPresented: $changeName, actions: {
             TextField("New name:", text: $newName)
+                .foregroundColor(Color.black)
             Button("Change", role: .destructive) {
                 yourName = newName
                 exit(-1)
