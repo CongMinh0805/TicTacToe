@@ -114,14 +114,58 @@ class GameService: ObservableObject {
     }
     
     
+    func winningOrBlockingMove(for player: Player) -> Int? {
+        for move in possibleMoves {
+            // Create a hypothetical board for the move
+            var testBoard = gameBoard
+            testBoard[move-1].player = player.gamePiece == .x ? player1 : player2
+            
+            // Check if the move leads to a win
+            if gameWon(on: testBoard, by: player) {
+                return move-1
+            }
+        }
+        return nil
+    }
+
+
+    func gameWon(on board: [GameSquare], by player: Player) -> Bool {
+        // Define the winning combinations
+        let winningCombinations: [[Int]] = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
+            [0, 4, 8], [2, 4, 6]              // Diagonals
+        ]
+        
+        for combo in winningCombinations {
+            if board[combo[0]].player?.gamePiece == player.gamePiece &&
+               board[combo[1]].player?.gamePiece == player.gamePiece &&
+               board[combo[2]].player?.gamePiece == player.gamePiece {
+                return true
+            }
+        }
+        
+        return false
+    }
+
+
     func deviceMove() async {
         isThinking.toggle()
-        try? await Task.sleep(nanoseconds:  1_000_000_000)
-        if let move = possibleMoves.randomElement() {
-            if let matchingIndex = Move.all.firstIndex(where: {$0 == move}) {
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
+        
+        // Determine best move
+        if let winningMove = winningOrBlockingMove(for: player2) {
+            makeMove(at: winningMove)
+        } else if let blockingMove = winningOrBlockingMove(for: player1) {
+            makeMove(at: blockingMove)
+        } else {
+            // Fallback to a random move
+            if let move = possibleMoves.randomElement(),
+               let matchingIndex = Move.all.firstIndex(where: {$0 == move}) {
                 makeMove(at: matchingIndex)
             }
         }
+        
         isThinking.toggle()
     }
     
@@ -165,5 +209,15 @@ struct LeaderboardEntry: Identifiable, Codable, Equatable {
         self.id = UUID()
         self.username = username
         self.wins = wins
+    }
+}
+extension Player {
+    var opponentGamePiece: GamePiece? {
+        switch self.gamePiece {
+        case .x:
+            return .o
+        case .o:
+            return .x
+        }
     }
 }

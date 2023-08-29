@@ -24,6 +24,7 @@
 		467712972A9A11D700AC2E28 /* MPPeersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467712962A9A11D700AC2E28 /* MPPeersView.swift */; };
 		469DE2AB2A9C5E9F00D2B27C /* ThemeToggleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469DE2AA2A9C5E9F00D2B27C /* ThemeToggleButtonView.swift */; };
 		469DE2AF2A9C7A6300D2B27C /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469DE2AE2A9C7A6300D2B27C /* LeaderboardView.swift */; };
+		46C1FF542A9DE2A400B5F9EC /* GradientBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C1FF532A9DE2A400B5F9EC /* GradientBackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		467712962A9A11D700AC2E28 /* MPPeersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPPeersView.swift; sourceTree = "<group>"; };
 		469DE2AA2A9C5E9F00D2B27C /* ThemeToggleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeToggleButtonView.swift; sourceTree = "<group>"; };
 		469DE2AE2A9C7A6300D2B27C /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		46C1FF532A9DE2A400B5F9EC /* GradientBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				467712842A99C58000AC2E28 /* GameView.swift */,
+				46C1FF532A9DE2A400B5F9EC /* GradientBackgroundView.swift */,
 				4677128A2A99E55600AC2E28 /* GameSquare.swift */,
 				469DE2AE2A9C7A6300D2B27C /* LeaderboardView.swift */,
 				467712882A99D1FB00AC2E28 /* GameService.swift */,
@@ -220,6 +223,7 @@
 				467712822A99C46400AC2E28 /* ViewModifiers.swift in Sources */,
 				467712972A9A11D700AC2E28 /* MPPeersView.swift in Sources */,
 				469DE2AB2A9C5E9F00D2B27C /* ThemeToggleButtonView.swift in Sources */,
+				46C1FF542A9DE2A400B5F9EC /* GradientBackgroundView.swift in Sources */,
 				469DE2AF2A9C7A6300D2B27C /* LeaderboardView.swift in Sources */,
 				467712932A9A07C600AC2E28 /* MPConnectionManager.swift in Sources */,
 				467712852A99C58000AC2E28 /* GameView.swift in Sources */,
