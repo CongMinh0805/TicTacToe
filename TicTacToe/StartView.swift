@@ -21,7 +21,7 @@ struct StartView: View {
     @EnvironmentObject var settings: UserSettings
     @State private var showLeaderboard = false
     
-    @State private var selectedDifficulty: AIDifficulty = .easy
+    @State private var selectedDifficulty: GameService.AIDifficulty = .easy
 
     
     init(yourName: String) {
@@ -29,13 +29,8 @@ struct StartView: View {
         self.yourName = yourName
     }
     
-    enum AIDifficulty: String, CaseIterable, Identifiable {
-        case easy = "Easy"
-        case medium = "Medium"
-        case hard = "Hard"
+   
 
-        var id: String { self.rawValue }
-    }
 
     var body: some View {
         VStack {
@@ -60,11 +55,12 @@ struct StartView: View {
                     }
                 case .bot:
                     Picker("AI Difficulty", selection: $selectedDifficulty) {
-                            ForEach(AIDifficulty.allCases) { difficulty in
-                                Text(difficulty.rawValue).tag(difficulty)
-                            }
+                        ForEach(GameService.AIDifficulty.allCases) { difficulty in
+                            Text(difficulty.rawValue).tag(difficulty)
                         }
-                        .pickerStyle(MenuPickerStyle())
+
+                    }
+                    .pickerStyle(MenuPickerStyle())
                 case .peer:
                     MPPeersView(startGame: $startGame)
                         .environmentObject(connectionManager)
@@ -78,15 +74,27 @@ struct StartView: View {
             .frame(width: 350)
             if gameType != .peer {
                 Button("Start Game") {
-                    game.setupGame(gameType: gameType, player1Name: yourName, player2Name: opponentName)
-                    focus = false
-                    startGame.toggle()
-                }
-                .buttonStyle(.borderedProminent)
-                .disabled(
-                    gameType == .undetermined ||
-                    gameType == .single && opponentName.isEmpty
-                )
+                               // Setting up the game
+                               switch gameType {
+                               case .single:
+                                   game.setupGame(gameType: .single, player1Name: yourName, player2Name: opponentName, aiDifficulty: .easy) // Set default or chosen AI difficulty
+                               case .bot:
+                                   game.setupGame(gameType: .bot, player1Name: yourName, player2Name: UIDevice.current.name, aiDifficulty: selectedDifficulty)
+                               case .peer:
+                                   // Setup logic for .peer (if any)
+                                   break
+                               case .undetermined:
+                                   break
+                               }
+                               
+                               focus = false
+                               startGame.toggle()
+                           }
+                           .buttonStyle(.borderedProminent)
+                           .disabled(
+                               gameType == .undetermined ||
+                               (gameType == .single && opponentName.isEmpty)
+                           )
                 Image("LaunchScreen")
                     .resizable()
                     .scaledToFit()

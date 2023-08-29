@@ -20,6 +20,14 @@ class GameService: ObservableObject {
 
     var gameType = GameType.single
     
+    var aiDifficulty: AIDifficulty = .easy
+    enum AIDifficulty: String, CaseIterable {
+        case easy = "Easy"
+        case medium = "Medium"
+        case hard = "Hard"
+    }
+
+    
     var currentPlayer: Player {
         if player1.isCurrent {
             return player1
@@ -38,7 +46,7 @@ class GameService: ObservableObject {
     init() {
         loadLeaderboard()
     }
-    func setupGame(gameType: GameType, player1Name: String, player2Name: String) {
+    func setupGame(gameType: GameType, player1Name: String, player2Name: String, aiDifficulty: AIDifficulty) {
         switch gameType {
         case .single:
             self.gameType = .single
@@ -52,6 +60,7 @@ class GameService: ObservableObject {
             break
         }
         player1.name = player1Name
+        self.aiDifficulty = aiDifficulty
     }
     
     func reset() {
@@ -112,7 +121,28 @@ class GameService: ObservableObject {
             }
         }
     }
-    
+    func randomMove() {
+        if let move = possibleMoves.randomElement(),
+           let matchingIndex = Move.all.firstIndex(where: {$0 == move}) {
+            makeMove(at: matchingIndex)
+        }
+    }
+
+    func winningMove(for player: Player) -> Bool {
+        if let winningMove = winningOrBlockingMove(for: player) {
+            makeMove(at: winningMove)
+            return true
+        }
+        return false
+    }
+
+    func blockingMove(for player: Player) -> Bool {
+        if let blockingMove = winningOrBlockingMove(for: player) {
+            makeMove(at: blockingMove)
+            return true
+        }
+        return false
+    }
     
     func winningOrBlockingMove(for player: Player) -> Int? {
         for move in possibleMoves {
@@ -153,21 +183,22 @@ class GameService: ObservableObject {
         isThinking.toggle()
         try? await Task.sleep(nanoseconds: 1_000_000_000)
         
-        // Determine best move
-        if let winningMove = winningOrBlockingMove(for: player2) {
-            makeMove(at: winningMove)
-        } else if let blockingMove = winningOrBlockingMove(for: player1) {
-            makeMove(at: blockingMove)
-        } else {
-            // Fallback to a random move
-            if let move = possibleMoves.randomElement(),
-               let matchingIndex = Move.all.firstIndex(where: {$0 == move}) {
-                makeMove(at: matchingIndex)
+        switch aiDifficulty {
+        case .easy:
+            randomMove()
+        case .medium:
+            if !winningMove(for: player2) {
+                randomMove()
+            }
+        case .hard:
+            if !winningMove(for: player2) && !blockingMove(for: player1) {
+                randomMove()
             }
         }
-        
+
         isThinking.toggle()
     }
+
     
     func updateLeaderboard(for player: Player) {
         if let index = leaderboard.firstIndex(where: { $0.username == player.name }) {
@@ -221,3 +252,9 @@ extension Player {
         }
     }
 }
+
+//make the AI levels identifiable
+extension GameService.AIDifficulty: Identifiable {
+    public var id: Self { self }
+}
+
