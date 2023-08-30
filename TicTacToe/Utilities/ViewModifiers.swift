@@ -8,12 +8,22 @@
 import SwiftUI
 
 struct NavStackContainer: ViewModifier {
+//    init() {
+//            let appearance = UINavigationBarAppearance()
+//            appearance.configureWithOpaqueBackground()
+//            appearance.backgroundColor = .blue // Setting the navigation bar's background color to blue
+//            
+//            UINavigationBar.appearance().standardAppearance = appearance
+//            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+//            UINavigationBar.appearance().compactAppearance = appearance
+//        }
     
     func body(content: Content) -> some View {
         if #available(iOS 16, *) {
             NavigationStack {
                 content
             }
+         
         } else {
             NavigationView {
                 content

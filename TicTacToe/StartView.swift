@@ -29,8 +29,9 @@ struct StartView: View {
         _connectionManager = StateObject(wrappedValue: MPConnectionManager(yourName: yourName))
         self.yourName = yourName
     }
-
+    
     var body: some View {
+        
         VStack {
             Picker("Select Game", selection: $gameType) {
                 Text("Select Game Type").tag(GameType.undetermined)
