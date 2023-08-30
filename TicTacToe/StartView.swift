@@ -17,7 +17,8 @@ struct StartView: View {
     @State private var startGame = false
     @State private var changeName = false
     @State private var newName = ""
-    
+    @Environment(\.colorScheme) var colorScheme
+
     @EnvironmentObject var settings: UserSettings
     @State private var showLeaderboard = false
     
@@ -88,6 +89,7 @@ struct StartView: View {
                                startGame.toggle()
                            }
                            .buttonStyle(.borderedProminent)
+                           .foregroundColor(colorScheme == .dark ? Color.black : Color(UIColor.label))
                            .disabled(
                                gameType == .undetermined ||
                                (gameType == .single && opponentName.isEmpty)
@@ -110,6 +112,7 @@ struct StartView: View {
                     showLeaderboard.toggle()
                 }
                 .buttonStyle(.borderedProminent)
+                .foregroundColor(colorScheme == .dark ? Color.black : Color(UIColor.label))
 
             }
             Spacer()

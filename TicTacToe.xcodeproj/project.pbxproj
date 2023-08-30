@@ -24,6 +24,7 @@
 		467712972A9A11D700AC2E28 /* MPPeersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467712962A9A11D700AC2E28 /* MPPeersView.swift */; };
 		469DE2AB2A9C5E9F00D2B27C /* ThemeToggleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469DE2AA2A9C5E9F00D2B27C /* ThemeToggleButtonView.swift */; };
 		469DE2AF2A9C7A6300D2B27C /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469DE2AE2A9C7A6300D2B27C /* LeaderboardView.swift */; };
+		46B65CC02A9F4A4200B57C2A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B65CBF2A9F4A4200B57C2A /* ViewController.swift */; };
 		46C1FF542A9DE2A400B5F9EC /* GradientBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C1FF532A9DE2A400B5F9EC /* GradientBackgroundView.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		467712962A9A11D700AC2E28 /* MPPeersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPPeersView.swift; sourceTree = "<group>"; };
 		469DE2AA2A9C5E9F00D2B27C /* ThemeToggleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeToggleButtonView.swift; sourceTree = "<group>"; };
 		469DE2AE2A9C7A6300D2B27C /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		46B65CBF2A9F4A4200B57C2A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		46C1FF532A9DE2A400B5F9EC /* GradientBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,15 +84,16 @@
 			children = (
 				467712902A9A06C000AC2E28 /* Info.plist */,
 				4677126B2A99B9FD00AC2E28 /* AppEntry.swift */,
+				46B65CBF2A9F4A4200B57C2A /* ViewController.swift */,
 				4677128E2A99F24C00AC2E28 /* YourNameView.swift */,
 				4677126D2A99B9FD00AC2E28 /* StartView.swift */,
+				4677127B2A99BC5C00AC2E28 /* Launch Screen.storyboard */,
 				467712832A99C56B00AC2E28 /* Game Screen */,
 				467712802A99C44500AC2E28 /* Utilities */,
 				4677127D2A99BE9900AC2E28 /* Models */,
 				467712912A9A078F00AC2E28 /* MultiPeerConnectivity */,
 				4677126F2A99BA0000AC2E28 /* Assets.xcassets */,
 				467712712A99BA0000AC2E28 /* Preview Content */,
-				4677127B2A99BC5C00AC2E28 /* Launch Screen.storyboard */,
 			);
 			path = TicTacToe;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				467712932A9A07C600AC2E28 /* MPConnectionManager.swift in Sources */,
 				467712852A99C58000AC2E28 /* GameView.swift in Sources */,
 				4677128B2A99E55600AC2E28 /* GameSquare.swift in Sources */,
+				46B65CC02A9F4A4200B57C2A /* ViewController.swift in Sources */,
 				4677128D2A99E67300AC2E28 /* SquareView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
