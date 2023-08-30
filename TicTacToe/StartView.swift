@@ -49,7 +49,7 @@ struct StartView: View {
                 case .single:
                     VStack {
                         TextField("Opponent Name", text: $opponentName)
-                        
+                            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     }
                 case .bot:
                     Picker("AI Difficulty", selection: $selectedDifficulty) {
@@ -89,7 +89,7 @@ struct StartView: View {
                                startGame.toggle()
                            }
                            .buttonStyle(.borderedProminent)
-                           .foregroundColor(colorScheme == .dark ? Color.black : Color(UIColor.label))
+                           .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
                            .disabled(
                                gameType == .undetermined ||
                                (gameType == .single && opponentName.isEmpty)
@@ -112,7 +112,7 @@ struct StartView: View {
                     showLeaderboard.toggle()
                 }
                 .buttonStyle(.borderedProminent)
-                .foregroundColor(colorScheme == .dark ? Color.black : Color(UIColor.label))
+                .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
 
             }
             Spacer()
