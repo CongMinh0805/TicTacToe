@@ -22,10 +22,16 @@
 		467712932A9A07C600AC2E28 /* MPConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467712922A9A07C600AC2E28 /* MPConnectionManager.swift */; };
 		467712952A9A0E8400AC2E28 /* MPGameMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467712942A9A0E8400AC2E28 /* MPGameMove.swift */; };
 		467712972A9A11D700AC2E28 /* MPPeersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467712962A9A11D700AC2E28 /* MPPeersView.swift */; };
+		468492B12AA09248004E1143 /* SquareViewFiveByFive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468492B02AA09248004E1143 /* SquareViewFiveByFive.swift */; };
 		469DE2AB2A9C5E9F00D2B27C /* ThemeToggleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469DE2AA2A9C5E9F00D2B27C /* ThemeToggleButtonView.swift */; };
 		469DE2AF2A9C7A6300D2B27C /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469DE2AE2A9C7A6300D2B27C /* LeaderboardView.swift */; };
 		46B65CC02A9F4A4200B57C2A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B65CBF2A9F4A4200B57C2A /* ViewController.swift */; };
 		46C1FF542A9DE2A400B5F9EC /* GradientBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C1FF532A9DE2A400B5F9EC /* GradientBackgroundView.swift */; };
+		46D563DA2AA054FE003130CE /* mixkit-game-level-completed-2059.wav in Resources */ = {isa = PBXBuildFile; fileRef = 46D563D62AA054FD003130CE /* mixkit-game-level-completed-2059.wav */; };
+		46D563DB2AA054FE003130CE /* bgmusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 46D563D72AA054FD003130CE /* bgmusic.mp3 */; };
+		46D563DC2AA054FE003130CE /* short-loading.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 46D563D82AA054FD003130CE /* short-loading.mp3 */; };
+		46D563DD2AA054FE003130CE /* futuristic-logo-3-versions-149429.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 46D563D92AA054FE003130CE /* futuristic-logo-3-versions-149429.mp3 */; };
+		46D563E02AA0572A003130CE /* FiveByFiveGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D563DF2AA0572A003130CE /* FiveByFiveGameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,10 +52,16 @@
 		467712922A9A07C600AC2E28 /* MPConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPConnectionManager.swift; sourceTree = "<group>"; };
 		467712942A9A0E8400AC2E28 /* MPGameMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPGameMove.swift; sourceTree = "<group>"; };
 		467712962A9A11D700AC2E28 /* MPPeersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPPeersView.swift; sourceTree = "<group>"; };
+		468492B02AA09248004E1143 /* SquareViewFiveByFive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewFiveByFive.swift; sourceTree = "<group>"; };
 		469DE2AA2A9C5E9F00D2B27C /* ThemeToggleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeToggleButtonView.swift; sourceTree = "<group>"; };
 		469DE2AE2A9C7A6300D2B27C /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		46B65CBF2A9F4A4200B57C2A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		46C1FF532A9DE2A400B5F9EC /* GradientBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackgroundView.swift; sourceTree = "<group>"; };
+		46D563D62AA054FD003130CE /* mixkit-game-level-completed-2059.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "mixkit-game-level-completed-2059.wav"; sourceTree = "<group>"; };
+		46D563D72AA054FD003130CE /* bgmusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgmusic.mp3; sourceTree = "<group>"; };
+		46D563D82AA054FD003130CE /* short-loading.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "short-loading.mp3"; sourceTree = "<group>"; };
+		46D563D92AA054FE003130CE /* futuristic-logo-3-versions-149429.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "futuristic-logo-3-versions-149429.mp3"; sourceTree = "<group>"; };
+		46D563DF2AA0572A003130CE /* FiveByFiveGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveByFiveGameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +100,7 @@
 				4677128E2A99F24C00AC2E28 /* YourNameView.swift */,
 				4677126D2A99B9FD00AC2E28 /* StartView.swift */,
 				4677127B2A99BC5C00AC2E28 /* Launch Screen.storyboard */,
+				46D563DE2AA05522003130CE /* Sound */,
 				467712832A99C56B00AC2E28 /* Game Screen */,
 				467712802A99C44500AC2E28 /* Utilities */,
 				4677127D2A99BE9900AC2E28 /* Models */,
@@ -126,7 +139,9 @@
 			isa = PBXGroup;
 			children = (
 				467712842A99C58000AC2E28 /* GameView.swift */,
+				46D563DF2AA0572A003130CE /* FiveByFiveGameView.swift */,
 				46C1FF532A9DE2A400B5F9EC /* GradientBackgroundView.swift */,
+				468492B02AA09248004E1143 /* SquareViewFiveByFive.swift */,
 				4677128A2A99E55600AC2E28 /* GameSquare.swift */,
 				469DE2AE2A9C7A6300D2B27C /* LeaderboardView.swift */,
 				467712882A99D1FB00AC2E28 /* GameService.swift */,
@@ -144,6 +159,17 @@
 				467712962A9A11D700AC2E28 /* MPPeersView.swift */,
 			);
 			path = MultiPeerConnectivity;
+			sourceTree = "<group>";
+		};
+		46D563DE2AA05522003130CE /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				46D563D72AA054FD003130CE /* bgmusic.mp3 */,
+				46D563D92AA054FE003130CE /* futuristic-logo-3-versions-149429.mp3 */,
+				46D563D62AA054FD003130CE /* mixkit-game-level-completed-2059.wav */,
+				46D563D82AA054FD003130CE /* short-loading.mp3 */,
+			);
+			path = Sound;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,7 +230,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46D563DB2AA054FE003130CE /* bgmusic.mp3 in Resources */,
 				4677127C2A99BC5C00AC2E28 /* Launch Screen.storyboard in Resources */,
+				46D563DC2AA054FE003130CE /* short-loading.mp3 in Resources */,
+				46D563DD2AA054FE003130CE /* futuristic-logo-3-versions-149429.mp3 in Resources */,
+				46D563DA2AA054FE003130CE /* mixkit-game-level-completed-2059.wav in Resources */,
 				467712732A99BA0000AC2E28 /* Preview Assets.xcassets in Resources */,
 				467712702A99BA0000AC2E28 /* Assets.xcassets in Resources */,
 			);
@@ -225,6 +255,8 @@
 				467712892A99D1FB00AC2E28 /* GameService.swift in Sources */,
 				467712822A99C46400AC2E28 /* ViewModifiers.swift in Sources */,
 				467712972A9A11D700AC2E28 /* MPPeersView.swift in Sources */,
+				468492B12AA09248004E1143 /* SquareViewFiveByFive.swift in Sources */,
+				46D563E02AA0572A003130CE /* FiveByFiveGameView.swift in Sources */,
 				469DE2AB2A9C5E9F00D2B27C /* ThemeToggleButtonView.swift in Sources */,
 				46C1FF542A9DE2A400B5F9EC /* GradientBackgroundView.swift in Sources */,
 				469DE2AF2A9C7A6300D2B27C /* LeaderboardView.swift in Sources */,

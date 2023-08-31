@@ -17,16 +17,21 @@ class GameService: ObservableObject {
     @Published var isThinking = false
     
     @Published var leaderboard: [LeaderboardEntry] = []
-
-    var gameType = GameType.single
     
+    enum GameMode {
+          case threeByThree
+          case fiveByFive
+      }
+
+    var gameMode: GameMode = .threeByThree // Set the default mode to be 3x3
+    var gameType = GameType.single
     var aiDifficulty: AIDifficulty = .easy
+    
     enum AIDifficulty: String, CaseIterable {
         case easy = "Easy"
         case medium = "Medium"
         case hard = "Hard"
     }
-
     
     var currentPlayer: Player {
         if player1.isCurrent {
@@ -43,9 +48,11 @@ class GameService: ObservableObject {
     var boardDisabled: Bool {
         gameOver || !gameStarted || isThinking
     }
+    
     init() {
         loadLeaderboard()
     }
+    
     func setupGame(gameType: GameType, player1Name: String, player2Name: String, aiDifficulty: AIDifficulty) {
         switch gameType {
         case .single:
@@ -72,7 +79,6 @@ class GameService: ObservableObject {
         possibleMoves = Move.all
         gameBoard = GameSquare.reset
     }
-    
     
     func updateMoves(index: Int) {
         if player1.isCurrent {
@@ -111,8 +117,9 @@ class GameService: ObservableObject {
                 }
                 toggleCurrent()
                 if gameType == .bot && currentPlayer.name == player2.name {
+                    let winCombination = gameMode == .threeByThree ? winningCombinations3x3 : winningCombinations5x5
                     Task {
-                        await deviceMove()
+                        await deviceMove(using: winCombination)
                     }
                 }
             }
@@ -121,6 +128,7 @@ class GameService: ObservableObject {
             }
         }
     }
+
     func randomMove() {
         if let move = possibleMoves.randomElement(),
            let matchingIndex = Move.all.firstIndex(where: {$0 == move}) {
@@ -128,58 +136,58 @@ class GameService: ObservableObject {
         }
     }
 
-    func winningMove(for player: Player) -> Bool {
-        if let winningMove = winningOrBlockingMove(for: player) {
+    func winningMove(for player: Player, using winCombination: [[Int]]) -> Bool {
+        if let winningMove = winningOrBlockingMove(for: player, using: winCombination) {
             makeMove(at: winningMove)
             return true
         }
         return false
     }
 
-    func blockingMove(for player: Player) -> Bool {
-        if let blockingMove = winningOrBlockingMove(for: player) {
+    func blockingMove(for player: Player, using winCombination: [[Int]]) -> Bool {
+        if let blockingMove = winningOrBlockingMove(for: player, using: winCombination) {
             makeMove(at: blockingMove)
             return true
         }
         return false
     }
     
-    func winningOrBlockingMove(for player: Player) -> Int? {
+    func winningOrBlockingMove(for player: Player, using winCombination: [[Int]]) -> Int? {
         for move in possibleMoves {
             // Create a hypothetical board for the move
             var testBoard = gameBoard
             testBoard[move-1].player = player.gamePiece == .x ? player1 : player2
             
             // Check if the move leads to a win
-            if gameWon(on: testBoard, by: player) {
+            if gameWon(on: testBoard, by: player, using: winCombination) {
                 return move-1
             }
         }
         return nil
     }
 
+    public let winningCombinations3x3: [[Int]] = [
+           [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
+           [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
+           [0, 4, 8], [2, 4, 6]              // Diagonals
+       ]
 
-    func gameWon(on board: [GameSquare], by player: Player) -> Bool {
-        // Define the winning combinations
-        let winningCombinations: [[Int]] = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
-            [0, 4, 8], [2, 4, 6]              // Diagonals
-        ]
-        
-        for combo in winningCombinations {
-            if board[combo[0]].player?.gamePiece == player.gamePiece &&
-               board[combo[1]].player?.gamePiece == player.gamePiece &&
-               board[combo[2]].player?.gamePiece == player.gamePiece {
+    public let winningCombinations5x5: [[Int]] = [
+        [0, 1, 2, 3, 4], [5, 6, 7, 8, 9], [10, 11, 12, 13, 14], [15, 16, 17, 18, 19], [20, 21, 22, 23, 24],  // Rows
+        [0, 5, 10, 15, 20], [1, 6, 11, 16, 21], [2, 7, 12, 17, 22], [3, 8, 13, 18, 23], [4, 9, 14, 19, 24],  // Columns
+        [0, 6, 12, 18, 24], [4, 8, 12, 16, 20]  // Diagonals
+    ]
+    
+    func gameWon(on board: [GameSquare], by player: Player, using winCombination: [[Int]]) -> Bool {
+        for combo in winCombination {
+            if combo.allSatisfy({ board[$0].player?.gamePiece == player.gamePiece }) {
                 return true
             }
         }
-        
         return false
     }
 
-
-    func deviceMove() async {
+    func deviceMove(using winCombination: [[Int]]) async  {
         isThinking.toggle()
         try? await Task.sleep(nanoseconds: 1_000_000_000)
         
@@ -187,18 +195,17 @@ class GameService: ObservableObject {
         case .easy:
             randomMove()
         case .medium:
-            if !winningMove(for: player2) {
+            if !winningMove(for: player2, using: winCombination) {
                 randomMove()
             }
         case .hard:
-            if !winningMove(for: player2) && !blockingMove(for: player1) {
+            if !winningMove(for: player2, using: winCombination) && !blockingMove(for: player1, using: winCombination) {
                 randomMove()
             }
         }
 
         isThinking.toggle()
     }
-
     
     func updateLeaderboard(for player: Player) {
         if let index = leaderboard.firstIndex(where: { $0.username == player.name }) {
@@ -214,7 +221,6 @@ class GameService: ObservableObject {
         // Save the updated leaderboard.
         saveLeaderboard()
     }
-
     
     func saveLeaderboard() {
         if let encodedData = try? JSONEncoder().encode(leaderboard) {
@@ -228,7 +234,6 @@ class GameService: ObservableObject {
             self.leaderboard = decodedData
         }
     }
-
 }
 struct LeaderboardEntry: Identifiable, Codable, Equatable {
     var id: UUID

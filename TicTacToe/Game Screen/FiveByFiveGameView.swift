@@ -1,4 +1,11 @@
 //
+//  FiveByFiveGameView.swift
+//  TicTacToe
+//
+//  Created by Minh Dang Cong on 30/08/2023.
+//
+
+//
 //  GameView.swift
 //  TicTacToe
 //
@@ -7,7 +14,8 @@
 
 import SwiftUI
 
-struct GameView: View {
+struct FiveByFiveGameView: View {
+    // Environment objects and state variables
     @EnvironmentObject var game: GameService
     @EnvironmentObject var connectionManager: MPConnectionManager
     @Environment(\.dismiss) var dismiss
@@ -33,7 +41,7 @@ struct GameView: View {
                 Button(game.player2.name) {
                     game.player2.isCurrent = true
                     if game.gameType == .bot {
-                        let winCombination = game.gameMode == .threeByThree ? game.winningCombinations3x3 : game.winningCombinations5x5
+                        let winCombination = game.gameMode == .fiveByFive ? game.winningCombinations5x5 : game.winningCombinations3x3
                         Task {
                             await game.deviceMove(using: winCombination)
                         }
@@ -47,23 +55,19 @@ struct GameView: View {
             }
             .disabled(game.gameStarted)
             
+            // 5x5 grid of squares
             VStack {
-                HStack {
-                    ForEach(0...2, id: \.self) { index in
-                        SquareView(index: index)
-                    }
-                }
-                HStack {
-                    ForEach(3...5, id: \.self) { index in
-                        SquareView(index: index)
-                    }
-                }
-                HStack {
-                    ForEach(6...8, id: \.self) { index in
-                        SquareView(index: index)
-                    }
-                }
-            }
+                   ForEach(0..<5, id: \.self) { row in
+                       HStack {
+                           ForEach(0..<5, id: \.self) { col in
+                               let index = row * 5 + col
+                               SquareViewFiveByFive(index: index)
+                                   .frame(width: 70, height: 70) // Adjust the frame size here
+
+                           }
+                       }
+                   }
+               }
             .overlay {
                 if game.isThinking {
                     VStack {
@@ -131,7 +135,7 @@ struct GameView: View {
             
         }
         .navigationTitle("Tic Tac Toe")
-        .onAppear{
+        .onAppear {
             game.reset()
             if game.gameType == .peer {
                 connectionManager.setup(game: game)
@@ -142,22 +146,13 @@ struct GameView: View {
     }
 }
 
-struct GameView_Previews: PreviewProvider {
+struct FiveByFiveGameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        FiveByFiveGameView()
             .environmentObject(GameService())
             .environmentObject(MPConnectionManager(yourName: "Sample"))
             .environmentObject(UserSettings())
     }
 }
 
-struct PlayerButtonStyle: ButtonStyle {
-    
-    let isCurrent: Bool
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .padding(8)
-            .background(RoundedRectangle(cornerRadius: 10).fill(isCurrent ? Color.green : Color.gray))
-            .foregroundColor(.white)
-    }
-}
+

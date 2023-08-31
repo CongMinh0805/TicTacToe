@@ -39,12 +39,20 @@ struct StartView: View {
                 Text("Challenge your device").tag(GameType.bot)
                 Text("Challenge a friend").tag(GameType.peer)
             }
-            
             .padding()
             .background(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(lineWidth: 2))
+        
 
             Text(gameType.description)
                 .padding()
+            
+            Picker("Select Game Mode", selection: $game.gameMode) {
+                Text("3x3").tag(GameService.GameMode.threeByThree)
+                Text("5x5").tag(GameService.GameMode.fiveByFive)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.trailing)
+            
             VStack {
                 switch gameType {
                 case .single:
@@ -59,7 +67,7 @@ struct StartView: View {
                         }
 
                     }
-                    .pickerStyle(MenuPickerStyle())
+                    .pickerStyle(DefaultPickerStyle())
                 case .peer:
                     MPPeersView(startGame: $startGame)
                         .environmentObject(connectionManager)
@@ -72,42 +80,49 @@ struct StartView: View {
             .focused($focus)
             .frame(width: 350)
             if gameType != .peer {
-                Button("Start Game") {
-                               // Setting up the game
-                               switch gameType {
-                               case .single:
-                                   game.setupGame(gameType: .single, player1Name: yourName, player2Name: opponentName, aiDifficulty: .easy) // Set default or chosen AI difficulty
-                               case .bot:
-                                   game.setupGame(gameType: .bot, player1Name: yourName, player2Name: UIDevice.current.name, aiDifficulty: selectedDifficulty)
-                               case .peer:
-                                   // Setup logic for .peer (if any)
-                                   break
-                               case .undetermined:
-                                   break
-                               }
-                               
-                               focus = false
-                               startGame.toggle()
-                           }
-                           .buttonStyle(.borderedProminent)
-                           .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
-                           .disabled(
-                               gameType == .undetermined ||
-                               (gameType == .single && opponentName.isEmpty)
-                           )
+                 Button("Start Game") {
+                    // Setting up the game
+                    switch gameType {
+                    case .single:
+                        game.setupGame(gameType: .single, player1Name: yourName, player2Name: opponentName, aiDifficulty: .easy) // Set default or chosen AI difficulty
+                    case .bot:
+                        game.setupGame(gameType: .bot, player1Name: yourName, player2Name: UIDevice.current.name, aiDifficulty: selectedDifficulty)
+                    case .peer:
+                        // Setup logic for .peer (if any)
+                        break
+                    case .undetermined:
+                        break
+                    }
+                    
+                    focus = false
+                    startGame.toggle()
+                }
+                .buttonStyle(.borderedProminent)
+                .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
+                .disabled(
+                    gameType == .undetermined ||
+                    (gameType == .single && opponentName.isEmpty)
+                )
+                .onTapGesture {
+                    if game.gameMode == .threeByThree {
+                        startGame.toggle()
+                    } else if game.gameMode == .fiveByFive {
+                        startGame.toggle()
+                    }
+                }
+                
                 Image("LaunchScreen")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200)
                     
-                    
-               
                 Text("Your username is \(yourName)")
                     .fontWeight(.bold)
                 Button("Change my name") {
                     changeName.toggle()
                 }
                 .buttonStyle(.bordered)
+                .padding()
                 
                 Button("Show Leaderboard") {
                     showLeaderboard.toggle()
@@ -127,9 +142,15 @@ struct StartView: View {
                 }
             }
         .fullScreenCover(isPresented: $startGame) {
-            GameView()
-                .environmentObject(connectionManager)
+            if game.gameMode == .threeByThree {
+                GameView()
+                    .environmentObject(connectionManager)
+            } else if game.gameMode == .fiveByFive {
+                FiveByFiveGameView()
+                    .environmentObject(connectionManager)
+            }
         }
+
         .fullScreenCover(isPresented: $showLeaderboard) {
             LeaderboardView(gameService: game)
         }
