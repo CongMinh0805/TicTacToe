@@ -36,8 +36,20 @@ struct Player {
     var name: String
     var moves: [Int] = []
     var isCurrent = false
+    
+    var gameMode: GameService.GameMode // Add this property
+    
+    // Modify the isWinner property based on the game mode
     var isWinner: Bool {
-        for moves in Move.winningMoves {
+        let winningMoves: [[Int]]
+        switch gameMode {
+        case .threeByThree:
+            winningMoves = Move.winningMoves
+        case .fiveByFive:
+            winningMoves = FiveByFiveMove.winningMoves
+        }
+        
+        for moves in winningMoves {
             if moves.allSatisfy(self.moves.contains) {
                 return true
             }
@@ -45,6 +57,7 @@ struct Player {
         return false
     }
 }
+
 
 enum Move {
    static var all = [1,2,3,4,5,6,7,8,9]

@@ -9,8 +9,8 @@ import SwiftUI
 
 @MainActor
 class GameService: ObservableObject {
-    @Published var player1 = Player(gamePiece: .x, name: "Player 1")
-    @Published var player2 = Player(gamePiece: .o, name: "Player 2")
+    @Published var player1: Player // Remove the initialization here
+        @Published var player2: Player // Remove the initialization here
     @Published var possibleMoves = Move.all
     @Published var gameOver = false
     @Published var gameBoard = GameSquare.reset
@@ -50,8 +50,11 @@ class GameService: ObservableObject {
     }
     
     init() {
-        loadLeaderboard()
-    }
+            // Initialize player1 and player2 with default game mode (3x3)
+            player1 = Player(gamePiece: .x, name: "Player 1", gameMode: gameMode)
+            player2 = Player(gamePiece: .o, name: "Player 2", gameMode: gameMode)
+            loadLeaderboard()
+        }
     
     func setupGame(gameType: GameType, player1Name: String, player2Name: String, aiDifficulty: AIDifficulty) {
         switch gameType {
@@ -68,6 +71,11 @@ class GameService: ObservableObject {
         }
         player1.name = player1Name
         self.aiDifficulty = aiDifficulty
+        
+        // Update player creation with gameMode parameter
+               player1 = Player(gamePiece: .x, name: player1Name, gameMode: gameMode)
+               player2 = Player(gamePiece: .o, name: player2Name, gameMode: gameMode)
+               
     }
     
     func reset() {
