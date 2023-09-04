@@ -57,17 +57,32 @@ struct FiveByFiveGameView: View {
             
             // 5x5 grid of squares
             VStack {
-                   ForEach(0..<5, id: \.self) { row in
-                       HStack {
-                           ForEach(0..<5, id: \.self) { col in
-                               let index = row * 5 + col
-                               SquareViewFiveByFive(index: index)
-                                   .frame(width: 70, height: 70) // Adjust the frame size here
-
-                           }
-                       }
-                   }
-               }
+                HStack {
+                    ForEach(0...4, id: \.self) { index in
+                        SquareViewFiveByFive(index: index)
+                    }
+                }
+                HStack {
+                    ForEach(5...9, id: \.self) { index in
+                        SquareViewFiveByFive(index: index)
+                    }
+                }
+                HStack {
+                    ForEach(10...14, id: \.self) { index in
+                        SquareViewFiveByFive(index: index)
+                    }
+                }
+                HStack {
+                    ForEach(15...19, id: \.self) { index in
+                        SquareViewFiveByFive(index: index)
+                    }
+                }
+                HStack {
+                    ForEach(20...24, id: \.self) { index in
+                        SquareViewFiveByFive(index: index)
+                    }
+                }
+            }
             .overlay {
                 if game.isThinking {
                     VStack {

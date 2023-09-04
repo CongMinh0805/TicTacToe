@@ -10,7 +10,7 @@ import SwiftUI
 @MainActor
 class GameService: ObservableObject {
     @Published var player1: Player // Remove the initialization here
-        @Published var player2: Player // Remove the initialization here
+    @Published var player2: Player // Remove the initialization here
     @Published var possibleMoves = Move.all
     @Published var gameOver = false
     @Published var gameBoard = GameSquare.reset
@@ -73,8 +73,8 @@ class GameService: ObservableObject {
         self.aiDifficulty = aiDifficulty
         
         // Update player creation with gameMode parameter
-               player1 = Player(gamePiece: .x, name: player1Name, gameMode: gameMode)
-               player2 = Player(gamePiece: .o, name: player2Name, gameMode: gameMode)
+        player1 = Player(gamePiece: .x, name: player1Name, gameMode: gameMode)
+        player2 = Player(gamePiece: .o, name: player2Name, gameMode: gameMode)
                
     }
     
@@ -125,7 +125,12 @@ class GameService: ObservableObject {
                 }
                 toggleCurrent()
                 if gameType == .bot && currentPlayer.name == player2.name {
-                    let winCombination = gameMode == .threeByThree ? winningCombinations3x3 : winningCombinations5x5
+                    var winCombination: [[Int]]
+                    if gameMode == .threeByThree {
+                        winCombination = winningCombinations3x3
+                    } else {
+                        winCombination = winningCombinations5x5
+                    }
                     Task {
                         await deviceMove(using: winCombination)
                     }
