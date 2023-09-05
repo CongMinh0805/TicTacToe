@@ -11,6 +11,7 @@ struct LeaderboardView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var isButtonPressed: Bool = false
     @ObservedObject var gameService: GameService
+    @Binding var selectedLanguage: String // Add the selectedLanguage binding
     
     // Sample data for the leaderboard
     let leaderboardEntries: [LeaderboardEntry] = [
@@ -24,12 +25,12 @@ struct LeaderboardView: View {
         NavigationView {
             List {
                 HStack {
-                    Text("Username")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Text("Wins")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    Text(selectedLanguage == "EN" ? "Username" : "Tên người chơi")
+                                            .fontWeight(.bold)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(selectedLanguage == "EN" ? "Wins" : "Số chiến thắng")
+                                            .fontWeight(.bold)
+                                            .frame(maxWidth: .infinity, alignment: .trailing)
                 }
                 
                 ForEach(gameService.leaderboard) { entry in
@@ -61,7 +62,7 @@ struct LeaderboardView: View {
                             }
                 }
             }
-            .navigationTitle("Leaderboard")
+            .navigationTitle(selectedLanguage == "EN" ? "Leaderboard" : "Bảng xếp hạng")
         }
     }
 }
@@ -78,7 +79,7 @@ struct LeaderboardView_Previews: PreviewProvider {
     }()
     
     static var previews: some View {
-        LeaderboardView(gameService: mockGameService)
-    }
+           LeaderboardView(gameService: mockGameService, selectedLanguage: .constant("EN")) // Provide a value for selectedLanguage
+       }
 }
 

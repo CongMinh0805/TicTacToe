@@ -94,17 +94,19 @@ struct GreetingView: View {
                         .padding(8)
                         .frame(height: 80)
                         .overlay(Text(selectedLanguage == "EN" ? "Get Started" : "Bắt Đầu") // Change text based on language selection
-                                    .font(.system(.title3, design: .rounded))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white))
+                        .font(.system(.title3, design: .rounded))
+                        .fontWeight(.bold)
+                        .foregroundColor(.white))
                 })
                 .fullScreenCover(isPresented: $showStartView, content: {
-                    StartView(yourName: yourName)
+                    StartView(yourName: yourName, selectedLanguage: $selectedLanguage) // Pass the selectedLanguage binding
                         .environmentObject(GameService())
                         .environmentObject(UserSettings())
                 })
+
             }
         }
+        
 //        .background(GradientBackgroundView())
     }
 }
@@ -112,7 +114,7 @@ struct GreetingView: View {
 
 struct GreetingView_Previews: PreviewProvider {
     static var previews: some View {
-        GreetingView(active: .constant(true), yourName: .constant("YourName"))
+        GreetingView(active: .constant(true), yourName: .constant("User"))
             .environmentObject(GameService())
             .environmentObject(UserSettings())
     }

@@ -23,12 +23,13 @@ struct FiveByFiveGameView: View {
     @State private var isTapped = false
     @Environment(\.presentationMode) var presentationMode
     @State private var showingEndGameAlert = false
+    @Binding var selectedLanguage: String
+    
 
     var body: some View {
         VStack {
             if [game.player1.isCurrent, game.player2.isCurrent].allSatisfy({ $0 == false }) {
-                Text("Select a player to start")
-            }
+                Text(selectedLanguage == "EN" ? "Select a player to start": "Chọn người chơi để bắt đầu")            }
             HStack {
                 Button(game.player1.name) {
                     game.player1.isCurrent = true
@@ -86,8 +87,7 @@ struct FiveByFiveGameView: View {
             .overlay {
                 if game.isThinking {
                     VStack {
-                        Text(" Thinking... ")
-                            .foregroundColor(Color(.systemBackground))
+                        Text(selectedLanguage == "EN" ? " Thinking... ": "Suy nghĩ")    .foregroundColor(Color(.systemBackground))
                             .background(Rectangle().fill(Color.primary))
                         ProgressView()
                     }
@@ -97,13 +97,12 @@ struct FiveByFiveGameView: View {
             
             VStack {
                 if game.gameOver {
-                    Text("Game Over")
+                    Text(selectedLanguage == "EN" ? "Game Over": "Trò chơi kết thúc")
                     if game.possibleMoves.isEmpty {
-                        Text("It's a tie!")
+                        Text(selectedLanguage == "EN" ? "It's a tie!": "Kết quả hoà")
                     } else {
-                        Text("\(game.currentPlayer.name) wins!")
-                    }
-                    Button("New Game") {
+                        Text(selectedLanguage == "EN" ? "\(game.currentPlayer.name) wins!": "\(game.currentPlayer.name) thắng!")                    }
+                    Button(selectedLanguage == "EN" ? "New Game": "Màn chơi mới") {
                         game.reset()
                         if game.gameType == .peer {
                             let gameMove = MPGameMove(action: .reset, playerName: nil, index: nil)
@@ -132,14 +131,14 @@ struct FiveByFiveGameView: View {
                             }
                         }
                     }) {
-                        Text("End Game")
+                        Text(selectedLanguage == "EN" ? "End Game": "Kết thúc")
                     }
                     .buttonStyle(.bordered)
                     .scaleEffect(isTapped ? 0.9 : 1.0)
                     .alert(isPresented: $showingEndGameAlert) {
-                        Alert(title: Text("End Game"),
-                              message: Text("Are you sure you want to end the game?"),
-                              primaryButton: .destructive(Text("End Game")) {
+                        Alert(title: Text(selectedLanguage == "EN" ? "End Game": "Kết thúc màn chơi"),
+                              message: Text(selectedLanguage == "EN" ? "Are you sure you want to end the game?" : "Bạn muốn kết thúc màn chơi này?"),
+                              primaryButton: .destructive(Text(selectedLanguage == "EN" ? "End Game" : "Kết thúc")) {
                                   self.presentationMode.wrappedValue.dismiss()
                               },
                               secondaryButton: .cancel())
@@ -149,7 +148,7 @@ struct FiveByFiveGameView: View {
                 }
             
         }
-        .navigationTitle("Tic Tac Toe")
+        .navigationTitle(selectedLanguage == "EN" ? "Tic Tac Toe": "Cờ caro")
         .onAppear {
             game.reset()
             if game.gameType == .peer {
@@ -163,7 +162,7 @@ struct FiveByFiveGameView: View {
 
 struct FiveByFiveGameView_Previews: PreviewProvider {
     static var previews: some View {
-        FiveByFiveGameView()
+        FiveByFiveGameView(selectedLanguage: .constant("EN"))
             .environmentObject(GameService())
             .environmentObject(MPConnectionManager(yourName: "Sample"))
             .environmentObject(UserSettings())

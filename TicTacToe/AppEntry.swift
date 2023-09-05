@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct AppEntry: App {
     @AppStorage("yourName") var yourName = ""
+    @State private var selectedLanguage: String = "EN" // Define the selectedLanguage state
     @StateObject var game = GameService()
     @StateObject var userSettings = UserSettings()
     
@@ -18,11 +19,12 @@ struct AppEntry: App {
             if yourName.isEmpty {
                 YourNameView()
             } else {
-                StartView(yourName: yourName)
+                StartView(yourName: yourName, selectedLanguage: $selectedLanguage) // Pass selectedLanguage
                     .environmentObject(game)
-                    .environmentObject(userSettings) 
+                    .environmentObject(userSettings)
             }
             
         }
     }
 }
+

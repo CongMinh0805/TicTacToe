@@ -18,6 +18,8 @@ struct StartView: View {
     @State private var changeName = false
     @State private var newName = ""
     @Environment(\.colorScheme) var colorScheme
+    @Binding var selectedLanguage: String // Add the selectedLanguage binding
+
 
     @EnvironmentObject var settings: UserSettings
     @State private var showLeaderboard = false
@@ -25,20 +27,22 @@ struct StartView: View {
     @State private var selectedDifficulty: GameService.AIDifficulty = .easy
 
     
-    init(yourName: String) {
-        _connectionManager = StateObject(wrappedValue: MPConnectionManager(yourName: yourName))
+    init(yourName: String, selectedLanguage: Binding<String>) {
+        self._selectedLanguage = selectedLanguage // Initialize selectedLanguage first
+        self._connectionManager = StateObject(wrappedValue: MPConnectionManager(yourName: yourName))
         self.yourName = yourName
     }
+
     
     var body: some View {
         
         VStack {
-            Picker("Select Game", selection: $gameType) {
-                Text("Select Game Type").tag(GameType.undetermined)
-                Text("2 Players 1 Device").tag(GameType.single)
-                Text("Challenge your device").tag(GameType.bot)
-                Text("Invite other devices").tag(GameType.peer)
-            }
+            Picker(selectedLanguage == "EN" ? "Select Game" : "Chọn trò chơi", selection: $gameType) {
+                    Text(selectedLanguage == "EN" ? "Select Game Type" : "Chọn chế độ chơi").tag(GameType.undetermined)
+                    Text(selectedLanguage == "EN" ? "2 Players 1 Device" : "2 Người chơi 1 Thiết bị").tag(GameType.single)
+                    Text(selectedLanguage == "EN" ? "Challenge your device" : "Đối đầu thiết bị của bạn").tag(GameType.bot)
+                    Text(selectedLanguage == "EN" ? "Invite other devices" : "Mời thiết bị khác").tag(GameType.peer)
+                       }
             .padding()
             .background(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(lineWidth: 2))
         
@@ -57,11 +61,11 @@ struct StartView: View {
                 switch gameType {
                 case .single:
                     VStack {
-                        TextField("Opponent Name", text: $opponentName)
+                        TextField(selectedLanguage == "EN" ? "Opponent Name" : "Tên đối thủ", text: $opponentName)
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     }
                 case .bot:
-                    Picker("AI Difficulty", selection: $selectedDifficulty) {
+                    Picker(selectedLanguage == "EN" ? "AI Difficulty" : "Độ khó AI", selection: $selectedDifficulty) {
                         ForEach(GameService.AIDifficulty.allCases) { difficulty in
                             Text(difficulty.rawValue).tag(difficulty)
                         }
@@ -80,7 +84,7 @@ struct StartView: View {
             .focused($focus)
             .frame(width: 350)
             if gameType != .peer {
-                 Button("Start Game") {
+                Button(selectedLanguage == "EN" ? "Start Game" : "Bắt đầu trò chơi") {
                     // Setting up the game
                     switch gameType {
                     case .single:
@@ -116,26 +120,32 @@ struct StartView: View {
                     .scaledToFit()
                     .frame(width: 200)
                     
-                Text("Your username is \(yourName)")
+                Text(selectedLanguage == "EN" ? "Your username is \(yourName)": "Tên tài khoản của bạn là \(yourName)")
                     .fontWeight(.bold)
-                Button("Change my name") {
+                Button(selectedLanguage == "EN" ? "Change my name" : "Đổi tên") {
                     changeName.toggle()
                 }
                 .buttonStyle(.bordered)
                 .padding()
                 
-                Button("Show Leaderboard") {
+                Button(action: {
                     showLeaderboard.toggle()
+                }) {
+                    Text(selectedLanguage == "EN" ? "Leaderboard" : "Bảng điểm")
+                        .frame(width: 200, height: 50)
+                        .background(Color.pink)
+                        .foregroundColor(.white)
+                        .font(.headline)
+                        .cornerRadius(10)
                 }
-                .buttonStyle(.borderedProminent)
-                .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
+                .buttonStyle(PlainButtonStyle()) // Remove the default button style
 
             }
             Spacer()
         }
         .padding()
        
-        .navigationTitle("Tic Tac Toe")
+        .navigationTitle(selectedLanguage == "EN" ? "Tic Tac Toe": "Cờ caro")
         .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     ThemeToggleButtonView()
@@ -143,28 +153,28 @@ struct StartView: View {
             }
         .fullScreenCover(isPresented: $startGame) {
             if game.gameMode == .threeByThree {
-                GameView()
+                GameView(selectedLanguage: $selectedLanguage)
                     .environmentObject(connectionManager)
             } else if game.gameMode == .fiveByFive {
-                FiveByFiveGameView()
+                FiveByFiveGameView(selectedLanguage: $selectedLanguage)
                     .environmentObject(connectionManager)
             }
         }
 
         .fullScreenCover(isPresented: $showLeaderboard) {
-            LeaderboardView(gameService: game)
+            LeaderboardView(gameService: game, selectedLanguage: $selectedLanguage)
         }
         .alert("Change Name", isPresented: $changeName, actions: {
-            TextField("New name:", text: $newName)
+            TextField(selectedLanguage == "EN" ? "New name:" : "Điền tên mới", text: $newName)
                 .foregroundColor(Color.black)
-            Button("Change", role: .destructive) {
+            Button(selectedLanguage == "EN" ? "Change" : "Đổi tên", role: .destructive) {
                 yourName = newName
                 exit(-1)
             }
             .padding()
-            Button("Cancel", role: .cancel) {}
+            Button(selectedLanguage == "EN" ? "Cancel" : "Huỷ", role: .cancel) {}
         }, message: {
-            Text("Warning: Tapping on the Change button will quit the application so you can relaunch with the changed name!")
+            Text(selectedLanguage == "EN" ? "Warning: Tapping on the Change button will quit the application so you can relaunch with the changed name!\n This is normal and you can relaunch the app and play with your updated username." : "Lưu ý: Sau khi nhấn đổi tên tài khoản ứng dụng sẽ tự động đóng để cập nhật tên tài khoản.\n Đây là điều bình thường và bạn có thể mở lại và chơi với tên tài khoản mới.")
         })
         .inNavigationStack()
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
@@ -173,7 +183,7 @@ struct StartView: View {
 
 struct StartView_Previews: PreviewProvider {
     static var previews: some View {
-        StartView(yourName: "Sample")
+        StartView(yourName: "Sample", selectedLanguage: .constant("EN")) // Provide a value for selectedLanguage
             .environmentObject(GameService())
             .environmentObject(UserSettings())
     }
