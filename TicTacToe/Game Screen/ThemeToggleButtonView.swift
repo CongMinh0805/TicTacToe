@@ -22,8 +22,6 @@ struct ThemeToggleButtonView: View {
     }
 }
 
-
-
 struct ThemeToggleButtonView_Previews: PreviewProvider {
     static var previews: some View {
         ThemeToggleButtonView()

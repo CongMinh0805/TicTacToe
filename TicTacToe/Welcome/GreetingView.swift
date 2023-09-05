@@ -99,14 +99,13 @@ struct GreetingView: View {
                         .foregroundColor(.white))
                 })
                 .fullScreenCover(isPresented: $showStartView, content: {
-                    StartView(yourName: yourName, selectedLanguage: $selectedLanguage) // Pass the selectedLanguage binding
+                    StartView(yourName: yourName, selectedLanguage: .constant("EN")) // Pass the selectedLanguage binding
                         .environmentObject(GameService())
                         .environmentObject(UserSettings())
                 })
 
             }
         }
-        
 //        .background(GradientBackgroundView())
     }
 }

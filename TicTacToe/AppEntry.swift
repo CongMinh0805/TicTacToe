@@ -19,7 +19,7 @@ struct AppEntry: App {
             if yourName.isEmpty {
                 YourNameView()
             } else {
-                StartView(yourName: yourName, selectedLanguage: $selectedLanguage) // Pass selectedLanguage
+                GreetingView(active: .constant(true), yourName: $yourName) // Start with GreetingView
                     .environmentObject(game)
                     .environmentObject(userSettings)
             }

@@ -19,6 +19,8 @@ struct StartView: View {
     @State private var newName = ""
     @Environment(\.colorScheme) var colorScheme
     @Binding var selectedLanguage: String // Add the selectedLanguage binding
+    @State private var showGreetingView = false
+    @Environment(\.presentationMode) private var presentationMode
 
 
     @EnvironmentObject var settings: UserSettings
@@ -150,7 +152,15 @@ struct StartView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     ThemeToggleButtonView()
                 }
-            }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "arrow.left")
+                                        .font(.title)
+                    }
+                }
+        }
         .fullScreenCover(isPresented: $startGame) {
             if game.gameMode == .threeByThree {
                 GameView(selectedLanguage: $selectedLanguage)
