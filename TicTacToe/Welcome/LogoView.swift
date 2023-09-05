@@ -14,13 +14,13 @@ struct LogoView: View {
         Image(logoFileName)
             .resizable()
             .scaledToFit()
-            .frame(minHeight: 130, idealHeight: 170, maxHeight: 200, alignment: .center)
+            .frame(minHeight: 50, idealHeight: 75, maxHeight: 100, alignment: .center) // Adjust the frame dimensions here
             .modifier(ShadowModifier())
     }
 }
 
 struct LogoView_Previews: PreviewProvider {
     static var previews: some View {
-        LogoView(logoFileName: "rmit-casino-logo")
+        LogoView(logoFileName: "rmit-logo")
     }
 }

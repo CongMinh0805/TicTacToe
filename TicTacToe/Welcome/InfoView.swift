@@ -12,9 +12,9 @@ struct InfoView: View {
     @Binding var selectedLanguage: String // Add the selectedLanguage binding
   var body: some View {
       ZStack{
-          Color("BlueRMIT")
+          Color("YellowRMIT")
           VStack(alignment: .center, spacing: 10) {
-            LogoView(logoFileName: "rmit-casino-logo")
+            LogoView(logoFileName: "rmit-logo")
             Spacer()
             
             Form {

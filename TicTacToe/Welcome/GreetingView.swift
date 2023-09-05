@@ -99,7 +99,7 @@ struct GreetingView: View {
                         .foregroundColor(.white))
                 })
                 .fullScreenCover(isPresented: $showStartView, content: {
-                    StartView(yourName: yourName, selectedLanguage: .constant("EN")) // Pass the selectedLanguage binding
+                    StartView(yourName: yourName, selectedLanguage: $selectedLanguage) // Pass the two-way binding
                         .environmentObject(GameService())
                         .environmentObject(UserSettings())
                 })
@@ -110,10 +110,11 @@ struct GreetingView: View {
     }
 }
 
-
 struct GreetingView_Previews: PreviewProvider {
+    @State static private var selectedLanguage = "EN" // Initialize the selected language
+    
     static var previews: some View {
-        GreetingView(active: .constant(true), yourName: .constant("User"))
+        GreetingView(active: .constant(true), yourName: .constant("User"), selectedLanguage: selectedLanguage)
             .environmentObject(GameService())
             .environmentObject(UserSettings())
     }
