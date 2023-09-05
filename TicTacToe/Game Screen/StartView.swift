@@ -47,7 +47,7 @@ struct StartView: View {
                        }
             .padding()
             .background(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(lineWidth: 2))
-        
+            
 
             Text(gameType.description)
                 .padding()
@@ -159,7 +159,7 @@ struct StartView: View {
                         Image(systemName: "arrow.left")
                                         .font(.title)
                     }
-                }
+            }
         }
         .fullScreenCover(isPresented: $startGame) {
             if game.gameMode == .threeByThree {
