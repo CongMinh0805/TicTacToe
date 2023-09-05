@@ -17,6 +17,8 @@ struct GameView: View {
     @State private var showingEndGameAlert = false
     @Binding var selectedLanguage: String
     
+    
+    
     var body: some View {
         VStack {
             if [game.player1.isCurrent, game.player2.isCurrent].allSatisfy({ $0 == false }) {
@@ -130,6 +132,9 @@ struct GameView: View {
 
                 }
             
+        }
+        .onAppear{
+//            playSound(sound: "game-music", type: "mp3")
         }
         .navigationTitle(selectedLanguage == "EN" ? "Tic Tac Toe": "Cờ caro")
         .onAppear{

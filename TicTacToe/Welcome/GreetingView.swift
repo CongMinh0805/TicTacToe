@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 
 struct GreetingView: View {
@@ -87,7 +88,7 @@ struct GreetingView: View {
                 Spacer()
 
                 Button(action: {
-                    showStartView = true // Set the state to true to present the StartView
+                      showStartView = true // Set the state to true to present the StartView
                 }, label: {
                     Capsule()
                         .fill(Color.black.opacity(0.8))
@@ -105,6 +106,10 @@ struct GreetingView: View {
                 })
 
             }
+        }
+        .onAppear {
+//            playSound(sound: "short-loading", type: "mp3")
+//            playSound(sound: "bgmusic", type: "mp3")
         }
 //        .background(GradientBackgroundView())
     }

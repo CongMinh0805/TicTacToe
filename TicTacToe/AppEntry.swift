@@ -13,6 +13,8 @@ struct AppEntry: App {
     @State private var selectedLanguage: String = "EN" // Define the selectedLanguage state
     @StateObject var game = GameService()
     @StateObject var userSettings = UserSettings()
+    @StateObject var audioManager = AudioManager()
+
     
     var body: some Scene {
         WindowGroup {

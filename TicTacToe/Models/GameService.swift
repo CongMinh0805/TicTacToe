@@ -99,14 +99,17 @@ class GameService: ObservableObject {
     }
     
     func checkWinner() {
-            if player1.isWinner {
-                gameOver = true
-                updateLeaderboard(for: player1)
-            } else if player2.isWinner {
-                gameOver = true
-                updateLeaderboard(for: player2)
-            }
+        if player1.isWinner {
+            gameOver = true
+            updateLeaderboard(for: player1)
+            playSound(sound: "win", type: "wav") // Play sound for winner
+        } else if player2.isWinner {
+            gameOver = true
+            updateLeaderboard(for: player2)
+            playSound(sound: "win", type: "wav") // Play sound for winner
         }
+    }
+
     
     func toggleCurrent() {
         player1.isCurrent.toggle()
@@ -118,6 +121,7 @@ class GameService: ObservableObject {
             withAnimation {
                 updateMoves(index: index)
             }
+            playSound(sound: "tap", type: "wav") // Play sound for move
             checkWinner()
             if !gameOver {
                 if let matchingIndex = possibleMoves.firstIndex(where: {$0 == (index + 1)}) {
@@ -195,6 +199,7 @@ class GameService: ObservableObject {
         for combo in winCombination {
             if combo.allSatisfy({ board[$0].player?.gamePiece == player.gamePiece }) {
                 return true
+               
             }
         }
         return false
@@ -218,6 +223,11 @@ class GameService: ObservableObject {
         }
 
         isThinking.toggle()
+        if player2.isWinner { // Device wins
+               playSound(sound: "lose", type: "wav")
+           } else {
+               playSound(sound: "tap", type: "wav")
+           }
     }
     
     func updateLeaderboard(for player: Player) {
