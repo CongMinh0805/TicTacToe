@@ -32,7 +32,12 @@ struct NavStackContainer: ViewModifier {
         }
     }
 }
-
+struct ShadowModifier: ViewModifier{
+    func body(content: Content) -> some View {
+        content
+            .shadow(color:Color("ColorBlackTransparent"), radius: 7)
+    }
+}
 extension View {
     public func inNavigationStack() -> some View {
         return self.modifier(NavStackContainer())

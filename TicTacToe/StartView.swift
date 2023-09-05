@@ -37,7 +37,7 @@ struct StartView: View {
                 Text("Select Game Type").tag(GameType.undetermined)
                 Text("2 Players 1 Device").tag(GameType.single)
                 Text("Challenge your device").tag(GameType.bot)
-                Text("Challenge a friend").tag(GameType.peer)
+                Text("Invite other devices").tag(GameType.peer)
             }
             .padding()
             .background(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(lineWidth: 2))
