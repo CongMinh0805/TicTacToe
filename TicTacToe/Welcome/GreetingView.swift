@@ -122,7 +122,7 @@ struct GreetingView: View {
         .onAppear {
 //            playSound(sound: "short-loading", type: "mp3")
             //Play background music when view opens
-//            playSound(sound: "bgmusic", type: "mp3")
+            playSound(sound: "bgmusic", type: "mp3")
         }
     }
 }

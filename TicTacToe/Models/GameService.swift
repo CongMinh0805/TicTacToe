@@ -89,6 +89,7 @@ class GameService: ObservableObject {
         gameOver = false
         possibleMoves = Move.all
         gameBoard = GameSquare.reset
+//        playSound(sound: "game-music", type: "mp3")
     }
     
     //update after a player has made a move
