@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//individual square in 5x5
 struct SquareViewFiveByFive: View {
     @EnvironmentObject var game: GameService
     @EnvironmentObject var connectionManager: MPConnectionManager
@@ -21,6 +22,7 @@ struct SquareViewFiveByFive: View {
                 connectionManager.send(gameMove: gameMove)
             }
         } label: {
+            //look of the square
             game.gameBoard[index].image
                 .resizable()
                 .frame(width: 70, height: 70)

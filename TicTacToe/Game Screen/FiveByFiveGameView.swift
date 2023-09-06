@@ -31,6 +31,7 @@ struct FiveByFiveGameView: View {
             if [game.player1.isCurrent, game.player2.isCurrent].allSatisfy({ $0 == false }) {
                 Text(selectedLanguage == "EN" ? "Select a player to start": "Chọn người chơi để bắt đầu")            }
             HStack {
+                //player 1 go first
                 Button(game.player1.name) {
                     game.player1.isCurrent = true
                     if game.gameType == .peer {
@@ -39,6 +40,7 @@ struct FiveByFiveGameView: View {
                     }
                 }
                 .buttonStyle(PlayerButtonStyle(isCurrent: game.player1.isCurrent))
+                //player 2 go first
                 Button(game.player2.name) {
                     game.player2.isCurrent = true
                     if game.gameType == .bot {
@@ -97,11 +99,15 @@ struct FiveByFiveGameView: View {
             
             VStack {
                 if game.gameOver {
+                    //alert game over
                     Text(selectedLanguage == "EN" ? "Game Over": "Trò chơi kết thúc")
                     if game.possibleMoves.isEmpty {
+                        //tie
                         Text(selectedLanguage == "EN" ? "It's a tie!": "Kết quả hoà")
                     } else {
+                        //win
                         Text(selectedLanguage == "EN" ? "\(game.currentPlayer.name) wins!": "\(game.currentPlayer.name) thắng!")                    }
+                    //reset all moves for new game
                     Button(selectedLanguage == "EN" ? "New Game": "Màn chơi mới") {
                         game.reset()
                         if game.gameType == .peer {
@@ -117,10 +123,12 @@ struct FiveByFiveGameView: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                            ThemeToggleButtonView()
+                //dark/light mode
+                    ThemeToggleButtonView()
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
+                        //spring animation
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0)) {
                             self.isTapped = true
                         }
@@ -155,6 +163,7 @@ struct FiveByFiveGameView: View {
                 connectionManager.setup(game: game)
             }
         }
+        //navigation stack on top
         .inNavigationStack()
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
     }

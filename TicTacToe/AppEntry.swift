@@ -19,8 +19,10 @@ struct AppEntry: App {
     var body: some Scene {
         WindowGroup {
             if yourName.isEmpty {
+                //If a game is freshly downloaded, it will prompt user to enter a username
                 YourNameView()
             } else {
+                //if a username already exists, the game will open straigth to GreetingView
                 GreetingView(active: .constant(true), yourName: $yourName, selectedLanguage: selectedLanguage) // Start with GreetingView
                     .environmentObject(game)
                     .environmentObject(userSettings)

@@ -22,14 +22,17 @@ struct GreetingView: View {
     
     var body: some View {
         ZStack{
+            //yellow background
             Color("yellowbg").ignoresSafeArea(.all, edges: .all)
             
             VStack(spacing: 20){
                 HStack {
                     // Inside GreetingView
+                    //Button to open InfoView
                     Button(action: {
                         showGeneralInfo = true
                     }) {
+                        //give button an icon
                         Image(systemName: "info.circle")
                             .font(.system(size: 30))
                             .foregroundColor(colorScheme == .dark ? .white : .black)
@@ -41,8 +44,12 @@ struct GreetingView: View {
 
 
                     Spacer()
+                    
+                    //Language selecting picker
                     Picker("", selection: $selectedLanguage) {
+                        //change language to english
                             Text("EN").tag("EN")
+                        //Change language to Vietnamese
                             Text("VIE").tag("VIE")
                         }
                         .pickerStyle(SegmentedPickerStyle())
@@ -51,6 +58,7 @@ struct GreetingView: View {
 
                     Spacer() // Add a spacer to push the button to the top right corner
                     HStack {
+                        //Open Student Info
                         Button(action: {
                             showStudentInfo = true // Set the state to true to present the student info view
                         }, label: {
@@ -66,11 +74,12 @@ struct GreetingView: View {
                 }
                 Spacer()
                 VStack(spacing: 0) {
+                    //Game Name
                     Text(selectedLanguage == "EN" ? "Tic Tac Toe" : "Cờ Caro")
                         .font(.system(size: 60))
                         .fontWeight(.heavy)
                         .multilineTextAlignment(.leading)
-                                    
+                    //game subheading
                     Text(selectedLanguage == "EN" ? "The game of X and O" : "Trò chơi X và O")
                         .font(.title3)
                         .fontWeight(.bold)
@@ -79,6 +88,7 @@ struct GreetingView: View {
                 }
               
                 ZStack{
+                    //game's icon
                     Image("LaunchScreen")
                         .resizable()
                         .scaledToFit()
@@ -87,6 +97,7 @@ struct GreetingView: View {
                 
                 Spacer()
 
+                //Start the game by openning StartView
                 Button(action: {
                       showStartView = true // Set the state to true to present the StartView
                 }, label: {
@@ -99,6 +110,7 @@ struct GreetingView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.white))
                 })
+                //Open StartView fullscreen
                 .fullScreenCover(isPresented: $showStartView, content: {
                     StartView(yourName: yourName, selectedLanguage: $selectedLanguage) // Pass the two-way binding
                         .environmentObject(GameService())
@@ -109,9 +121,9 @@ struct GreetingView: View {
         }
         .onAppear {
 //            playSound(sound: "short-loading", type: "mp3")
+            //Play background music when view opens
 //            playSound(sound: "bgmusic", type: "mp3")
         }
-//        .background(GradientBackgroundView())
     }
 }
 

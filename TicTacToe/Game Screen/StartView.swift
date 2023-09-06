@@ -28,7 +28,7 @@ struct StartView: View {
     
     @State private var selectedDifficulty: GameService.AIDifficulty = .easy
 
-    
+    //initialize the variables
     init(yourName: String, selectedLanguage: Binding<String>) {
         self._selectedLanguage = selectedLanguage // Initialize selectedLanguage first
         self._connectionManager = StateObject(wrappedValue: MPConnectionManager(yourName: yourName))
@@ -39,6 +39,7 @@ struct StartView: View {
     var body: some View {
         
         VStack {
+            // select game mode
             Picker(selectedLanguage == "EN" ? "Select Game" : "Chọn trò chơi", selection: $gameType) {
                     Text(selectedLanguage == "EN" ? "Select Game Type" : "Chọn chế độ chơi").tag(GameType.undetermined)
                     Text(selectedLanguage == "EN" ? "2 Players 1 Device" : "2 Người chơi 1 Thiết bị").tag(GameType.single)
@@ -52,6 +53,7 @@ struct StartView: View {
             Text(gameType.description)
                 .padding()
             
+            //Select board's size
             Picker("Select Game Mode", selection: $game.gameMode) {
                 Text("3x3").tag(GameService.GameMode.threeByThree)
                 Text("5x5").tag(GameService.GameMode.fiveByFive)
@@ -63,11 +65,14 @@ struct StartView: View {
                 switch gameType {
                 case .single:
                     VStack {
+                        //if game mode is 2 players in same device
+                        //prompt user to enter 2nd player's name
                         TextField(selectedLanguage == "EN" ? "Opponent Name" : "Tên đối thủ", text: $opponentName)
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                     }
                 case .bot:
                     Picker(selectedLanguage == "EN" ? "AI Difficulty" : "Độ khó AI", selection: $selectedDifficulty) {
+                        //displays AI difficulty
                         ForEach(GameService.AIDifficulty.allCases) { difficulty in
                             Text(difficulty.rawValue).tag(difficulty)
                         }
@@ -93,8 +98,9 @@ struct StartView: View {
                         game.setupGame(gameType: .single, player1Name: yourName, player2Name: opponentName, aiDifficulty: .easy) // Set default or chosen AI difficulty
                     case .bot:
                         game.setupGame(gameType: .bot, player1Name: yourName, player2Name: UIDevice.current.name, aiDifficulty: selectedDifficulty)
+                        //proceed with selected AI difficulty
                     case .peer:
-                        // Setup logic for .peer (if any)
+                        //in development
                         break
                     case .undetermined:
                         break
@@ -116,20 +122,22 @@ struct StartView: View {
                         startGame.toggle()
                     }
                 }
-                
+                //label image
                 Image("LaunchScreen")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200)
-                    
+                 //display username
                 Text(selectedLanguage == "EN" ? "Your username is \(yourName)": "Tên tài khoản của bạn là \(yourName)")
                     .fontWeight(.bold)
+                //option to change name
                 Button(selectedLanguage == "EN" ? "Change my name" : "Đổi tên") {
                     changeName.toggle()
                 }
                 .buttonStyle(.bordered)
                 .padding()
                 
+                //display game's leaderboard
                 Button(action: {
                     showLeaderboard.toggle()
                 }) {
@@ -153,6 +161,8 @@ struct StartView: View {
                     ThemeToggleButtonView()
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
+                    
+                    //return back to greeting View
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
                     }) {
@@ -161,6 +171,7 @@ struct StartView: View {
                     }
             }
         }
+        //open the greeting view in full screen
         .fullScreenCover(isPresented: $startGame) {
             if game.gameMode == .threeByThree {
                 GameView(selectedLanguage: $selectedLanguage)
@@ -170,18 +181,21 @@ struct StartView: View {
                     .environmentObject(connectionManager)
             }
         }
-
+        //open leaderboard in full screen
         .fullScreenCover(isPresented: $showLeaderboard) {
             LeaderboardView(gameService: game, selectedLanguage: $selectedLanguage)
         }
+        //ask user to confirm if they want to change username
         .alert("Change Name", isPresented: $changeName, actions: {
             TextField(selectedLanguage == "EN" ? "New name:" : "Điền tên mới", text: $newName)
                 .foregroundColor(Color.black)
+            //confirm to change the name
             Button(selectedLanguage == "EN" ? "Change" : "Đổi tên", role: .destructive) {
                 yourName = newName
                 exit(-1)
             }
             .padding()
+            //close the alert
             Button(selectedLanguage == "EN" ? "Cancel" : "Huỷ", role: .cancel) {}
         }, message: {
             Text(selectedLanguage == "EN" ? "Warning: Tapping on the Change button will quit the application so you can relaunch with the changed name!\n This is normal and you can relaunch the app and play with your updated username." : "Lưu ý: Sau khi nhấn đổi tên tài khoản ứng dụng sẽ tự động đóng để cập nhật tên tài khoản.\n Đây là điều bình thường và bạn có thể mở lại và chơi với tên tài khoản mới.")

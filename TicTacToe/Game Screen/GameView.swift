@@ -25,6 +25,7 @@ struct GameView: View {
                 Text(selectedLanguage == "EN" ? "Select a player to start": "Chọn người chơi để bắt đầu")
             }
             HStack {
+                //select for player 1 to go first
                 Button(game.player1.name) {
                     game.player1.isCurrent = true
                     if game.gameType == .peer {
@@ -33,6 +34,8 @@ struct GameView: View {
                     }
                 }
                 .buttonStyle(PlayerButtonStyle(isCurrent: game.player1.isCurrent))
+                
+                //select for player 2 to go first
                 Button(game.player2.name) {
                     game.player2.isCurrent = true
                     if game.gameType == .bot {
@@ -52,6 +55,7 @@ struct GameView: View {
             
             VStack {
                 HStack {
+                    //lay out 3x3 squares grid
                     ForEach(0...2, id: \.self) { index in
                         SquareView(index: index)
                     }
@@ -69,6 +73,7 @@ struct GameView: View {
             }
             .overlay {
                 if game.isThinking {
+                    //give device a 1 second delay before laying its move
                     VStack {
                         Text(selectedLanguage == "EN" ? " Thinking... ": "Suy nghĩ")
                             .foregroundColor(Color(.systemBackground))
@@ -80,13 +85,19 @@ struct GameView: View {
             .disabled(game.boardDisabled || game.gameType == .peer && connectionManager.myPeerId.displayName != game.currentPlayer.name)
             
             VStack {
+                //game is over
                 if game.gameOver {
                     Text(selectedLanguage == "EN" ? "Game Over": "Trò chơi kết thúc")
+                    
+                    //tie
                     if game.possibleMoves.isEmpty {
                         Text(selectedLanguage == "EN" ? "It's a tie!": "Kết quả hoà")
+                        
+                        //there's a winner
                     } else {
                         Text(selectedLanguage == "EN" ? "\(game.currentPlayer.name) wins!": "\(game.currentPlayer.name) thắng!")
                     }
+                    //reset the game
                     Button(selectedLanguage == "EN" ? "New Game": "Màn chơi mới") {
                         game.reset()
                         if game.gameType == .peer {
@@ -95,6 +106,7 @@ struct GameView: View {
                         }
                     }
                     .buttonStyle(.borderedProminent)
+                    .foregroundColor(settings.isDarkMode ? .black : .primary)
                 }
             }
             .font(.largeTitle)
@@ -102,10 +114,14 @@ struct GameView: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
+                //dark mode button
                             ThemeToggleButtonView()
                 }
+            
+            //end the game session
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
+                        //button animation
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0)) {
                             self.isTapped = true
                         }
@@ -121,12 +137,13 @@ struct GameView: View {
                     .buttonStyle(.bordered)
                     .scaleEffect(isTapped ? 0.9 : 1.0)
                     .alert(isPresented: $showingEndGameAlert) {
+                        //ask user to confirm exiting
                         Alert(title: Text(selectedLanguage == "EN" ? "End Game": "Kết thúc màn chơi"),
                               message: Text(selectedLanguage == "EN" ? "Are you sure you want to end the game?" : "Bạn muốn kết thúc màn chơi này?"),
                               primaryButton: .destructive(Text(selectedLanguage == "EN" ? "End Game" : "Kết thúc")) {
-                                  self.presentationMode.wrappedValue.dismiss()
+                                  self.presentationMode.wrappedValue.dismiss() //close the game view
                               },
-                              secondaryButton: .cancel())
+                              secondaryButton: .cancel()) //cancel alert
                     }
 
 
@@ -138,11 +155,13 @@ struct GameView: View {
         }
         .navigationTitle(selectedLanguage == "EN" ? "Tic Tac Toe": "Cờ caro")
         .onAppear{
+            //creates a blank square grid
             game.reset()
             if game.gameType == .peer {
                 connectionManager.setup(game: game)
             }
         }
+        //insert navigation stack on top
         .inNavigationStack()
         .preferredColorScheme(settings.isDarkMode ? .dark : .light)
     }

@@ -22,6 +22,7 @@ struct GeneralInfo: View {
               Spacer()
               
               Form {
+                  //Game instruction
                   Section(header: Text(selectedLanguage == "EN" ? "How To Play" : "Hướng dẫn trò chơi").bold()) {
                 if selectedLanguage == "EN" {
                     Text("1. There are 3 game modes for you:\n Share a device\n Play with your device\n Play with other devices that also has this game")
@@ -29,6 +30,7 @@ struct GeneralInfo: View {
                     Text("3. If you are playing with your device. You can select press enter and the game will start.")
                     Text("4. If you are playing 2 players in the same device, enter the 2nd player's name and you can start the game")
                     Text("5. You can change your username and the game will exit and reload with a new username.")
+                    //language option
                 } else if selectedLanguage == "VIE" {
                     Text("1. Có 3 chế độ chơi cho bạn:\n Chia sẻ thiết bị\n Chơi với thiết bị của bạn\n Chơi với các thiết bị khác cũng có trò chơi này")
                     Text("2. Chọn kích thước bảng 3x3 hoặc 5x5 theo sở thích của bạn")
@@ -42,8 +44,8 @@ struct GeneralInfo: View {
             }
             .padding(.top, 40)
             .overlay(
+                //close the view
               Button(action: {
-  //              audioPlayer?.stop()
                 dismiss()
               }) {
                 Image(systemName: "xmark.circle")
@@ -54,9 +56,7 @@ struct GeneralInfo: View {
               .padding(.trailing, 20),
               alignment: .topTrailing
               )
-              .onAppear(perform: {
-  //              playSound(sound: "drum-music", type: "mp3")
-              })
+              
         }
       
     }

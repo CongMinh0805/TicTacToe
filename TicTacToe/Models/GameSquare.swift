@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//assign the squares index
 struct GameSquare {
     var id: Int
     var player: Player?

@@ -7,15 +7,18 @@
 
 import SwiftUI
 
+//individual square in 3x3 grid
 struct SquareView: View {
     @EnvironmentObject var game: GameService
     @EnvironmentObject var connectionManager: MPConnectionManager
     let index: Int
     var body: some View {
         Button {
+            //make move at corresponding square
             if !game.isThinking {
                 game.makeMove(at: index)
             }
+            //multiplayer
             if game.gameType == .peer {
                 let gameMove = MPGameMove(action: .move, playerName: connectionManager.myPeerId.displayName ,index: index)
                 connectionManager.send(gameMove: gameMove)

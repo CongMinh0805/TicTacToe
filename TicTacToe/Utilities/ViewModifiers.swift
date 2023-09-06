@@ -38,6 +38,7 @@ struct ShadowModifier: ViewModifier{
             .shadow(color:Color("ColorBlackTransparent"), radius: 7)
     }
 }
+//navigation stack at the top
 extension View {
     public func inNavigationStack() -> some View {
         return self.modifier(NavStackContainer())

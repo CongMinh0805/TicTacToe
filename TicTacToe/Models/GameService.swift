@@ -18,6 +18,7 @@ class GameService: ObservableObject {
     
     @Published var leaderboard: [LeaderboardEntry] = []
     
+    //there are two board sizes 3x3 and 5x5
     enum GameMode {
           case threeByThree
           case fiveByFive
@@ -25,7 +26,7 @@ class GameService: ObservableObject {
 
     var gameMode: GameMode = .threeByThree // Set the default mode to be 3x3
     var gameType = GameType.single
-    var aiDifficulty: AIDifficulty = .easy
+    var aiDifficulty: AIDifficulty = .easy //default is easy
     
     enum AIDifficulty: String, CaseIterable {
         case easy = "Easy"
@@ -56,6 +57,7 @@ class GameService: ObservableObject {
             loadLeaderboard()
         }
     
+    //set up a game everytime entering
     func setupGame(gameType: GameType, player1Name: String, player2Name: String, aiDifficulty: AIDifficulty) {
         switch gameType {
         case .single:
@@ -78,6 +80,7 @@ class GameService: ObservableObject {
                
     }
     
+    //reset the board for a new game
     func reset() {
         player1.isCurrent = false
         player2.isCurrent = false
@@ -88,6 +91,7 @@ class GameService: ObservableObject {
         gameBoard = GameSquare.reset
     }
     
+    //update after a player has made a move
     func updateMoves(index: Int) {
         if player1.isCurrent {
             player1.moves.append(index + 1)
@@ -98,6 +102,7 @@ class GameService: ObservableObject {
         }
     }
     
+    //check if there is a winner
     func checkWinner() {
         if player1.isWinner {
             gameOver = true
@@ -116,6 +121,7 @@ class GameService: ObservableObject {
         player2.isCurrent.toggle()
     }
     
+    //allows players to place X or O on a square
     func makeMove(at index: Int) {
         if gameBoard[index].player == nil {
             withAnimation {
@@ -146,6 +152,7 @@ class GameService: ObservableObject {
         }
     }
 
+    //device will put mark on random
     func randomMove() {
         if let move = possibleMoves.randomElement(),
            let matchingIndex = Move.all.firstIndex(where: {$0 == move}) {
@@ -153,6 +160,7 @@ class GameService: ObservableObject {
         }
     }
 
+    //device tries to achieve a win combination
     func winningMove(for player: Player, using winCombination: [[Int]]) -> Bool {
         if let winningMove = winningOrBlockingMove(for: player, using: winCombination) {
             makeMove(at: winningMove)
@@ -161,6 +169,7 @@ class GameService: ObservableObject {
         return false
     }
 
+    //blocks player if a combination is almost achieved
     func blockingMove(for player: Player, using winCombination: [[Int]]) -> Bool {
         if let blockingMove = winningOrBlockingMove(for: player, using: winCombination) {
             makeMove(at: blockingMove)
@@ -205,6 +214,7 @@ class GameService: ObservableObject {
         return false
     }
 
+    //device will "think" for 1 second for making its next move
     func deviceMove(using winCombination: [[Int]]) async  {
         isThinking.toggle()
         try? await Task.sleep(nanoseconds: 1_000_000_000)
@@ -230,6 +240,7 @@ class GameService: ObservableObject {
            }
     }
     
+    //update new winner to leaderboard
     func updateLeaderboard(for player: Player) {
         if let index = leaderboard.firstIndex(where: { $0.username == player.name }) {
             // Player exists in the leaderboard. Update their wins.
@@ -245,12 +256,14 @@ class GameService: ObservableObject {
         saveLeaderboard()
     }
     
+    //save new winner username and add 1 to number of wins
     func saveLeaderboard() {
         if let encodedData = try? JSONEncoder().encode(leaderboard) {
             UserDefaults.standard.set(encodedData, forKey: "leaderboard")
         }
     }
 
+    //load leaderboard info
     func loadLeaderboard() {
         if let savedData = UserDefaults.standard.data(forKey: "leaderboard"),
            let decodedData = try? JSONDecoder().decode([LeaderboardEntry].self, from: savedData) {
@@ -270,6 +283,8 @@ struct LeaderboardEntry: Identifiable, Codable, Equatable {
         self.wins = wins
     }
 }
+
+//players return corresponding mark
 extension Player {
     var opponentGamePiece: GamePiece? {
         switch self.gamePiece {

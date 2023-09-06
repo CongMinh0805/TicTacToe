@@ -12,9 +12,11 @@ struct YourNameView: View {
     @State private var userName = ""
     var body: some View {
         VStack {
-            Text("This is the name that will be associated with this device")
+            //prompt username
+            Text("This is the username that will be associated with you")
             TextField("Your Name", text: $userName)
                 .textFieldStyle(.roundedBorder)
+            //Set the entered username
             Button("Set") {
                 yourName = userName
             }

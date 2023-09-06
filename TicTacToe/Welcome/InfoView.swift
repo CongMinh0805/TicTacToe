@@ -12,12 +12,15 @@ struct InfoView: View {
     @Binding var selectedLanguage: String // Add the selectedLanguage binding
   var body: some View {
       ZStack{
+          //Yellow background
           Color("YellowRMIT")
+          //Rmit logo on top
           VStack(alignment: .center, spacing: 10) {
             LogoView(logoFileName: "rmit-logo")
             Spacer()
             
             Form {
+                //game's information
                 Section(header: Text(selectedLanguage == "EN" ? "Application Information" : "Thông tin ứng dụng").bold()) {
                     HStack {
                       Text(selectedLanguage == "EN" ? "App Name" : "Tên ứng dụng")
@@ -40,7 +43,7 @@ struct InfoView: View {
                         Text(selectedLanguage == "EN" ? "RMIT Saigon South Campus" : "RMIT Nam Sài Gòn")
                     }
               }
-                
+                //Student information
                 Section(header: Text(selectedLanguage == "EN" ? "Student Information" : "Thông tin sinh viên").bold()) {
                     HStack {
                         Text(selectedLanguage == "EN" ? "Name" : "Tên")
@@ -60,8 +63,8 @@ struct InfoView: View {
           }
           .padding(.top, 40)
           .overlay(
+            //Close the view
             Button(action: {
-//              audioPlayer?.stop()
               dismiss()
             }) {
               Image(systemName: "xmark.circle")
@@ -73,7 +76,7 @@ struct InfoView: View {
             alignment: .topTrailing
             )
             .onAppear(perform: {
-//              playSound(sound: "drum-music", type: "mp3")
+                
             })
       }
     

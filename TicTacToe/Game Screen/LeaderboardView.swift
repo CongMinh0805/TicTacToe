@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//show the leaderboard
 struct LeaderboardView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var isButtonPressed: Bool = false
@@ -25,9 +26,11 @@ struct LeaderboardView: View {
         NavigationView {
             List {
                 HStack {
+                    //username column
                     Text(selectedLanguage == "EN" ? "Username" : "Tên người chơi")
                                             .fontWeight(.bold)
                                             .frame(maxWidth: .infinity, alignment: .leading)
+                    //number of wins column
                     Text(selectedLanguage == "EN" ? "Wins" : "Số chiến thắng")
                                             .fontWeight(.bold)
                                             .frame(maxWidth: .infinity, alignment: .trailing)
@@ -35,8 +38,10 @@ struct LeaderboardView: View {
                 
                 ForEach(gameService.leaderboard) { entry in
                     HStack {
+                        //insert new winner names
                         Text(entry.username)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                        //update number of wins
                         Text("\(entry.wins)")
                             .frame(maxWidth: .infinity, alignment: .trailing)
                     }
@@ -44,6 +49,7 @@ struct LeaderboardView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
+                    //return back
                     Button(action: {
                                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0)) {
                                     isButtonPressed.toggle()

@@ -30,7 +30,7 @@ enum GamePiece: String {
         Image(self.rawValue)
     }
 }
-
+//all player variables
 struct Player {
     let gamePiece: GamePiece
     var name: String
@@ -58,7 +58,7 @@ struct Player {
     }
 }
 
-
+//all moves and win combinations in 3x3 game
 enum Move {
    static var all = [1,2,3,4,5,6,7,8,9]
 
@@ -73,6 +73,7 @@ enum Move {
         [3,5,7]
     ]
 }
+//all moves and win combinations in 5x5 game
 enum FiveByFiveMove {
     static var all = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
 

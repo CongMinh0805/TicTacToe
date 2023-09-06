@@ -7,11 +7,13 @@
 
 import SwiftUI
 
+//dark/light mode button
 struct ThemeToggleButtonView: View {
     @EnvironmentObject var settings: UserSettings  // Changed from @ObservedObject
 
     var body: some View {
         Button(action: {
+            //turn on dark mode
             settings.isDarkMode.toggle()
             print("Dark mode is now: \(settings.isDarkMode)")
         }) {
