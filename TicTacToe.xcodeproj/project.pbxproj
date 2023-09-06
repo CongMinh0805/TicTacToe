@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		463862152AA85F40004269FB /* arrow-whoosh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 463862142AA85F40004269FB /* arrow-whoosh.wav */; };
 		463862172AA86025004269FB /* shutter-click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 463862162AA86025004269FB /* shutter-click.wav */; };
+		463862192AA86DDE004269FB /* modern-select.wav in Resources */ = {isa = PBXBuildFile; fileRef = 463862182AA86DDE004269FB /* modern-select.wav */; };
 		464A33082AA6D7F6006022CB /* GeneralInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464A33072AA6D7F6006022CB /* GeneralInfo.swift */; };
 		464A330A2AA6DE3F006022CB /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464A33092AA6DE3F006022CB /* InfoView.swift */; };
 		464A330E2AA6E984006022CB /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464A330D2AA6E984006022CB /* LogoView.swift */; };
@@ -48,6 +49,7 @@
 /* Begin PBXFileReference section */
 		463862142AA85F40004269FB /* arrow-whoosh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "arrow-whoosh.wav"; sourceTree = "<group>"; };
 		463862162AA86025004269FB /* shutter-click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "shutter-click.wav"; sourceTree = "<group>"; };
+		463862182AA86DDE004269FB /* modern-select.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "modern-select.wav"; sourceTree = "<group>"; };
 		464A33072AA6D7F6006022CB /* GeneralInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfo.swift; sourceTree = "<group>"; };
 		464A33092AA6DE3F006022CB /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		464A330D2AA6E984006022CB /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				46D563D92AA054FE003130CE /* futuristic.mp3 */,
 				464A33172AA7437D006022CB /* lose.wav */,
 				464A331B2AA74995006022CB /* game-music.mp3 */,
+				463862182AA86DDE004269FB /* modern-select.wav */,
 				463862162AA86025004269FB /* shutter-click.wav */,
 				464A33152AA7411E006022CB /* tap.wav */,
 				46D563D62AA054FD003130CE /* win.wav */,
@@ -275,6 +278,7 @@
 				46D563DB2AA054FE003130CE /* bgmusic.mp3 in Resources */,
 				4677127C2A99BC5C00AC2E28 /* Launch Screen.storyboard in Resources */,
 				46D563DC2AA054FE003130CE /* short-loading.mp3 in Resources */,
+				463862192AA86DDE004269FB /* modern-select.wav in Resources */,
 				46D563DD2AA054FE003130CE /* futuristic.mp3 in Resources */,
 				46D563DA2AA054FE003130CE /* win.wav in Resources */,
 				464A33182AA7437D006022CB /* lose.wav in Resources */,

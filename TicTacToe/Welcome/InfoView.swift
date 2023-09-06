@@ -65,6 +65,7 @@ struct InfoView: View {
           .overlay(
             //Close the view
             Button(action: {
+                playSound(sound: "modern-select", type: "wav")
               dismiss()
             }) {
               Image(systemName: "xmark.circle")
