@@ -51,6 +51,7 @@ struct LeaderboardView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     //return back
                     Button(action: {
+                        playSound(sound: "shutter-click", type: "wav")
                                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0)) {
                                     isButtonPressed.toggle()
                                 }

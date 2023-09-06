@@ -30,6 +30,7 @@ struct GreetingView: View {
                     // Inside GreetingView
                     //Button to open InfoView
                     Button(action: {
+                        playSound(sound: "arrow-whoosh", type: "wav")
                         showGeneralInfo = true
                     }) {
                         //give button an icon
@@ -55,11 +56,13 @@ struct GreetingView: View {
                         .pickerStyle(SegmentedPickerStyle())
                         .frame(width: 100)
                         .padding(.leading)
+                        
 
                     Spacer() // Add a spacer to push the button to the top right corner
                     HStack {
                         //Open Student Info
                         Button(action: {
+                            playSound(sound: "arrow-whoosh", type: "wav")
                             showStudentInfo = true // Set the state to true to present the student info view
                         }, label: {
                             Image(systemName: "person.circle") // Use the systemName for the profile icon
@@ -99,6 +102,7 @@ struct GreetingView: View {
 
                 //Start the game by openning StartView
                 Button(action: {
+                    playSound(sound: "shutter-click", type: "wav")
                       showStartView = true // Set the state to true to present the StartView
                 }, label: {
                     Capsule()

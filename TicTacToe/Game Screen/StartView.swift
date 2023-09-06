@@ -92,6 +92,7 @@ struct StartView: View {
             .frame(width: 350)
             if gameType != .peer {
                 Button(selectedLanguage == "EN" ? "Start Game" : "Bắt đầu trò chơi") {
+                    playSound(sound: "shutter-click", type: "wav")
                     playSound(sound: "bgmusic", type: "mp3", isBackgroundMusic: true)
                     // Setting up the game
                     switch gameType {
@@ -133,6 +134,7 @@ struct StartView: View {
                     .fontWeight(.bold)
                 //option to change name
                 Button(selectedLanguage == "EN" ? "Change my name" : "Đổi tên") {
+                    playSound(sound: "shutter-click", type: "wav")
                     changeName.toggle()
                 }
                 .buttonStyle(.bordered)
@@ -140,6 +142,7 @@ struct StartView: View {
                 
                 //display game's leaderboard
                 Button(action: {
+                    playSound(sound: "shutter-click", type: "wav")
                     showLeaderboard.toggle()
                 }) {
                     Text(selectedLanguage == "EN" ? "Leaderboard" : "Bảng điểm")
@@ -159,12 +162,14 @@ struct StartView: View {
         .navigationTitle(selectedLanguage == "EN" ? "Tic Tac Toe": "Cờ caro")
         .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
+                    
                     ThemeToggleButtonView()
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     
                     //return back to greeting View
                     Button(action: {
+                        playSound(sound: "shutter-click", type: "wav")
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Image(systemName: "arrow.left")
@@ -192,12 +197,15 @@ struct StartView: View {
                 .foregroundColor(Color.black)
             //confirm to change the name
             Button(selectedLanguage == "EN" ? "Change" : "Đổi tên", role: .destructive) {
+                playSound(sound: "shutter-click", type: "wav")
                 yourName = newName
                 exit(-1)
             }
             .padding()
             //close the alert
-            Button(selectedLanguage == "EN" ? "Cancel" : "Huỷ", role: .cancel) {}
+            Button(selectedLanguage == "EN" ? "Cancel" : "Huỷ", role: .cancel) {
+                playSound(sound: "shutter-click", type: "wav")
+            }
         }, message: {
             Text(selectedLanguage == "EN" ? "Warning: Tapping on the Change button will quit the application so you can relaunch with the changed name!\n This is normal and you can relaunch the app and play with your updated username." : "Lưu ý: Sau khi nhấn đổi tên tài khoản ứng dụng sẽ tự động đóng để cập nhật tên tài khoản.\n Đây là điều bình thường và bạn có thể mở lại và chơi với tên tài khoản mới.")
         })
