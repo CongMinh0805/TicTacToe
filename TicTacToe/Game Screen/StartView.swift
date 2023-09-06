@@ -92,6 +92,7 @@ struct StartView: View {
             .frame(width: 350)
             if gameType != .peer {
                 Button(selectedLanguage == "EN" ? "Start Game" : "Bắt đầu trò chơi") {
+                    playSound(sound: "bgmusic", type: "mp3", isBackgroundMusic: true)
                     // Setting up the game
                     switch gameType {
                     case .single:

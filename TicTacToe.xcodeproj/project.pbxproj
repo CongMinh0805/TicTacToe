@@ -38,7 +38,7 @@
 		46D563DA2AA054FE003130CE /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 46D563D62AA054FD003130CE /* win.wav */; };
 		46D563DB2AA054FE003130CE /* bgmusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 46D563D72AA054FD003130CE /* bgmusic.mp3 */; };
 		46D563DC2AA054FE003130CE /* short-loading.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 46D563D82AA054FD003130CE /* short-loading.mp3 */; };
-		46D563DD2AA054FE003130CE /* futuristic-logo-3-versions-149429.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 46D563D92AA054FE003130CE /* futuristic-logo-3-versions-149429.mp3 */; };
+		46D563DD2AA054FE003130CE /* futuristic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 46D563D92AA054FE003130CE /* futuristic.mp3 */; };
 		46D563E02AA0572A003130CE /* FiveByFiveGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D563DF2AA0572A003130CE /* FiveByFiveGameView.swift */; };
 		A3C1DEB42AA63AE700DC72F4 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C1DEB32AA63AE700DC72F4 /* GreetingView.swift */; };
 /* End PBXBuildFile section */
@@ -77,7 +77,7 @@
 		46D563D62AA054FD003130CE /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
 		46D563D72AA054FD003130CE /* bgmusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgmusic.mp3; sourceTree = "<group>"; };
 		46D563D82AA054FD003130CE /* short-loading.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "short-loading.mp3"; sourceTree = "<group>"; };
-		46D563D92AA054FE003130CE /* futuristic-logo-3-versions-149429.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "futuristic-logo-3-versions-149429.mp3"; sourceTree = "<group>"; };
+		46D563D92AA054FE003130CE /* futuristic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = futuristic.mp3; sourceTree = "<group>"; };
 		46D563DF2AA0572A003130CE /* FiveByFiveGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveByFiveGameView.swift; sourceTree = "<group>"; };
 		A3C1DEB32AA63AE700DC72F4 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -197,7 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				46D563D72AA054FD003130CE /* bgmusic.mp3 */,
-				46D563D92AA054FE003130CE /* futuristic-logo-3-versions-149429.mp3 */,
+				46D563D92AA054FE003130CE /* futuristic.mp3 */,
 				464A33172AA7437D006022CB /* lose.wav */,
 				464A331B2AA74995006022CB /* game-music.mp3 */,
 				464A33152AA7411E006022CB /* tap.wav */,
@@ -269,7 +269,7 @@
 				46D563DB2AA054FE003130CE /* bgmusic.mp3 in Resources */,
 				4677127C2A99BC5C00AC2E28 /* Launch Screen.storyboard in Resources */,
 				46D563DC2AA054FE003130CE /* short-loading.mp3 in Resources */,
-				46D563DD2AA054FE003130CE /* futuristic-logo-3-versions-149429.mp3 in Resources */,
+				46D563DD2AA054FE003130CE /* futuristic.mp3 in Resources */,
 				46D563DA2AA054FE003130CE /* win.wav in Resources */,
 				464A33182AA7437D006022CB /* lose.wav in Resources */,
 				467712732A99BA0000AC2E28 /* Preview Assets.xcassets in Resources */,
