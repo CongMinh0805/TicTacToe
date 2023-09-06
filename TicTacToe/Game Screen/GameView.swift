@@ -150,9 +150,7 @@ struct GameView: View {
                 }
             
         }
-        .onAppear{
-//            playSound(sound: "game-music", type: "mp3")
-        }
+        
         .navigationTitle(selectedLanguage == "EN" ? "Tic Tac Toe": "Cờ caro")
         .onAppear{
             //creates a blank square grid
