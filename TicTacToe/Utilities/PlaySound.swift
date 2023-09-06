@@ -1,17 +1,19 @@
 import AVFoundation
 
-var audioPlayer: AVAudioPlayer?
-var backgroundMusicPlayer: AVAudioPlayer?
+var audioPlayer: AVAudioPlayer? //short audio sounds
+var backgroundMusicPlayer: AVAudioPlayer?  //background music
 var audioSession = AVAudioSession.sharedInstance()
 
+//play the sound
 func playSound(sound: String, type: String, isBackgroundMusic: Bool = false) {
     do {
+        //allows mixing with other audio
         try audioSession.setCategory(.ambient, mode: .default)
         try audioSession.setActive(true)
     } catch {
         print("Error setting audio session category: \(error.localizedDescription)")
     }
-
+    //stop current playing sound
     if !isBackgroundMusic, let audioPlayer = audioPlayer, audioPlayer.isPlaying {
         audioPlayer.stop()
     }
@@ -32,6 +34,8 @@ func playSound(sound: String, type: String, isBackgroundMusic: Bool = false) {
     }
 }
 
+
+//increase or decrease volume
 func adjustVolume(_ decrease: Bool) {
        if let player = audioPlayer {
            let currentVolume = player.volume
