@@ -1,16 +1,17 @@
-//
-//  PlaySound.swift
-//  TicTacToe
-//
-//  Created by Minh Dang Cong on 05/09/2023.
-//
-
 import AVFoundation
 
 var audioPlayer: AVAudioPlayer?
-var backgroundMusicPlayer: AVAudioPlayer? // Add a separate player for background music
+var backgroundMusicPlayer: AVAudioPlayer?
+var audioSession = AVAudioSession.sharedInstance()
 
 func playSound(sound: String, type: String, isBackgroundMusic: Bool = false) {
+    do {
+        try audioSession.setCategory(.ambient, mode: .default)
+        try audioSession.setActive(true)
+    } catch {
+        print("Error setting audio session category: \(error.localizedDescription)")
+    }
+
     if !isBackgroundMusic, let audioPlayer = audioPlayer, audioPlayer.isPlaying {
         audioPlayer.stop()
     }
@@ -31,3 +32,10 @@ func playSound(sound: String, type: String, isBackgroundMusic: Bool = false) {
     }
 }
 
+func adjustVolume(_ decrease: Bool) {
+       if let player = audioPlayer {
+           let currentVolume = player.volume
+           let newVolume = decrease ? max(0.0, currentVolume - 0.1) : min(1.0, currentVolume + 0.1)
+           player.volume = newVolume
+       }
+   }
